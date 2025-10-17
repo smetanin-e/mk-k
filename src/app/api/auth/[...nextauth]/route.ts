@@ -1,16 +1,10 @@
-import NextAuth from 'next-auth';
-import GitHubProvider from 'next-auth/providers/github';
+import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/shared/lib';
 import { verifyPassword } from '@/shared/lib/auth/passwordHasher';
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
-    GitHubProvider({
-      clientId: '',
-      clientSecret: '',
-    }),
-
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -18,6 +12,8 @@ export const authOptions = {
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
+        debugger;
+        console.log('credentials', credentials);
         if (!credentials) {
           return null;
         }
@@ -25,11 +21,15 @@ export const authOptions = {
           login: credentials.login,
           password: credentials.password,
         };
+        console.log('values', values);
         const findUser = await prisma.user.findUnique({
           where: { login: values.login },
         });
 
+        console.log('findUser', findUser);
+
         if (!findUser) {
+          console.log('❌ User not found');
           return null;
         }
 
@@ -38,6 +38,7 @@ export const authOptions = {
           findUser.password,
           findUser.salt!,
         );
+        console.log('isPasswordValid', isPasswordValid);
         if (!isPasswordValid) {
           return null;
         }
@@ -47,7 +48,7 @@ export const authOptions = {
         }
 
         return {
-          id: String(findUser.id),
+          id: findUser.id,
           login: findUser.login,
           role: findUser.role,
           //TODO Добавить нужные поля
@@ -59,7 +60,42 @@ export const authOptions = {
   session: {
     strategy: 'jwt',
   },
-  //TODO 20:48:36 archakov
+  callbacks: {
+    async signIn({ account }) {
+      try {
+        if (account?.provider === 'credentials') {
+          return true;
+        }
+        return false;
+      } catch (error) {
+        console.error('Error [SIGNIN]', error);
+        return false;
+      }
+    },
+    async jwt({ token }) {
+      const findUser = await prisma.user.findFirst({
+        where: { login: token.login },
+      });
+      console.log('findUser', findUser);
+
+      if (findUser) {
+        token.id = String(findUser.id);
+        token.login = findUser.login;
+        token.role = findUser.role;
+        //TODO Добавить нужные поля
+      }
+      return token;
+    },
+
+    session({ session, token }) {
+      if (session?.user) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+      }
+
+      return session;
+    },
+  },
 };
 const handler = NextAuth(authOptions);
 
