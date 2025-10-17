@@ -5,10 +5,11 @@ import { Button } from '@/shared/components//ui';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFormType, loginSchema } from './login-schema';
-import { FormInput } from '../form/form-input';
+
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
+import { LoginFormType, loginSchema } from '../model/schemas/login-schema';
+import { FormInput } from '@/shared/components/form';
 
 interface Props {
   className?: string;

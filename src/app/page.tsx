@@ -1,4 +1,4 @@
-import { Login } from '@/shared/components/temp-login/login';
+import { Login } from '@/features/auth/ui/login-modal';
 
 export default function Home() {
   return (
