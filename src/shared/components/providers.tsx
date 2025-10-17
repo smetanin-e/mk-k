@@ -10,14 +10,15 @@ export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
   const color = 'var(--color-primary)';
   return (
     <>
-      <SessionProvider>
-        <ThemeProvider attribute={'class'} enableSystem defaultTheme='system'>
+      {' '}
+      <ThemeProvider attribute={'class'} enableSystem defaultTheme='system'>
+        <SessionProvider>
           {children}
           <Theme />
           <Toaster />
           <NextTopLoader color={color} shadow={`0 0 10px ${color},0 0 5px ${color}`} />
-        </ThemeProvider>
-      </SessionProvider>
+        </SessionProvider>{' '}
+      </ThemeProvider>
     </>
   );
 };
