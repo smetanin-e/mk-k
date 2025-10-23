@@ -1,2 +1,3 @@
 export * from './utils';
-export * from './prisma-client';
+export { userInitials } from './user-initialls';
+export { stringToColor } from './string-to-color';

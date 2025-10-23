@@ -10,12 +10,15 @@ import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 import { LoginFormType, loginSchema } from '../model/schemas/login-schema';
 import { FormInput } from '@/shared/components/form';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   className?: string;
+  onClose: VoidFunction;
 }
 
-export const LoginForm: React.FC<Props> = () => {
+export const LoginForm: React.FC<Props> = ({ onClose }) => {
+  const router = useRouter();
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -31,10 +34,11 @@ export const LoginForm: React.FC<Props> = () => {
         redirect: false,
       });
 
-      if (!resp?.ok) {
-        throw new Error();
+      if (resp?.error) {
+        return toast.error(resp.error); // покажет текст из throw new Error('...')
       }
-      //закрыть модалку
+      onClose?.();
+      router.push('/replacement');
       toast.success('Добро пожаловать!');
     } catch (error) {
       console.error('Error [LOGIN]', error);

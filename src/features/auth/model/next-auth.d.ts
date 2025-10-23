@@ -7,14 +7,19 @@ declare module 'next-auth' {
     user: {
       id: string;
       role: UserRole;
-      name: string;
-      image: string;
+      login: string;
+      //TODO поправить типы под себя
     };
   }
 
   interface User extends DefaultUser {
     id: number;
+    login: string;
     role: UserRole;
+    // surname: string;
+    // firstName: string;
+    // lastName: string;
+    // status: boolean;
   }
 }
 

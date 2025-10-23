@@ -1,0 +1,60 @@
+import { TableCell, TableRow } from '@/shared/components/ui';
+import React from 'react';
+import { Agent } from '../model/types';
+import { Minus, Shield } from 'lucide-react';
+
+interface Props {
+  className?: string;
+  user: Agent;
+  currentUserId: number;
+}
+
+export const UserItem: React.FC<Props> = ({ user, currentUserId }) => {
+  return (
+    <TableRow>
+      <TableCell className='flex items-center gap-4'>
+        <div className='font-medium'>{`${user.surname} ${user.firstName} ${user.lastName}`}</div>
+        {currentUserId === user.id && <Shield className='h-5 w-5' color='green' />}
+      </TableCell>
+      <TableCell>{user.login}</TableCell>
+      <TableCell>{user.role}</TableCell>
+
+      <TableCell>
+        <div className='flex items-center gap-2'>
+          {/* <Switch
+                        checked={user.status}
+                        disabled={loading || user.id === admin.id}
+                        onCheckedChange={() => toggleStatus(user.id, admin.id)}
+                        className='data-[state=checked]:bg-success data-[state=unchecked]:bg-gray-400'
+                      /> */}
+          <span>{user.status ? 'Активен' : 'Заблокирован'}</span>
+        </div>
+      </TableCell>
+      <TableCell className='text-right flex gap-4 justify-end'>
+        {user.id === currentUserId ? (
+          <div className='flex  items-center gap-4'>
+            <div className='h-8 w-8 p-0 flex items-center'>
+              <Minus className='h-4 w-8 ' />
+            </div>
+            <div className='h-8 w-8 p-0 flex items-center'>
+              <Minus className='h-4 w-8 ' />
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* <UpdateUser user={user} />
+                        <DeleteUser
+                          loading={loading}
+                          setLoading={setLoading}
+                          id={user.id}
+                          currentUserId={admin.id}
+                        /> */}
+          </>
+        )}
+        <div className='flex items-center justify-center'>
+          {/* <ChangePassword id={user.id} /> */}
+        </div>
+      </TableCell>
+    </TableRow>
+  );
+};

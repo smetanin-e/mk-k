@@ -1,7 +1,8 @@
-import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@/shared/lib';
-import { verifyPassword } from '@/shared/lib/auth/passwordHasher';
+import { AuthOptions } from 'next-auth';
+
+import { verifyPassword } from '@/shared/lib/auth/password-utils';
+import { userRepository } from '@/entities/user/repository/user-repository';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -12,25 +13,19 @@ export const authOptions: AuthOptions = {
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        debugger;
-        console.log('credentials', credentials);
         if (!credentials) {
-          return null;
+          console.error('[NEXT_AUTH] No credentials provided');
+          throw new Error('Ошибка авторизации');
         }
         const values = {
           login: credentials.login,
           password: credentials.password,
         };
-        console.log('values', values);
-        const findUser = await prisma.user.findUnique({
-          where: { login: values.login },
-        });
-
-        console.log('findUser', findUser);
+        const findUser = await userRepository.findUserByLogin(values.login);
 
         if (!findUser) {
-          console.log('❌ User not found');
-          return null;
+          console.error('[NEXT_AUTH] User not found');
+          throw new Error('Неверный логин или пароль');
         }
 
         const isPasswordValid = await verifyPassword(
@@ -38,19 +33,25 @@ export const authOptions: AuthOptions = {
           findUser.password,
           findUser.salt!,
         );
-        console.log('isPasswordValid', isPasswordValid);
+
         if (!isPasswordValid) {
-          return null;
+          console.error('[NEXT_AUTH] Invalid login or password');
+          throw new Error('Неверный логин или пароль');
         }
 
         if (!findUser.status) {
-          return null;
+          console.error('[NEXT_AUTH] User account is disabled');
+          throw new Error('Ваш аккаунт заблокирован');
         }
 
         return {
           id: findUser.id,
           login: findUser.login,
           role: findUser.role,
+          //   surmane: findUser.surname,
+          //   firstName: findUser.firstName,
+          //   lastName: findUser.lastName,
+          //   status: findUser.status,
           //TODO Добавить нужные поля
         };
       },
@@ -62,29 +63,34 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async signIn({ account }) {
-      try {
-        if (account?.provider === 'credentials') {
-          return true;
-        }
-        return false;
-      } catch (error) {
-        console.error('Error [SIGNIN]', error);
-        return false;
-      }
+      return account?.provider === 'credentials';
     },
-    async jwt({ token }) {
-      const findUser = await prisma.user.findFirst({
-        where: { login: token.login },
-      });
-      console.log('findUser', findUser);
 
-      if (findUser) {
-        token.id = String(findUser.id);
-        token.login = findUser.login;
-        token.role = findUser.role;
-        //TODO Добавить нужные поля
+    async jwt({ token, user }) {
+      try {
+        // Добавляем user из authorize
+        if (user) {
+          token.id = String(user.id);
+          token.login = user.login;
+          token.role = user.role;
+        }
+
+        // Обновляем из БД только если есть login
+        if (token.login) {
+          const findUser = await userRepository.findUserByLogin(token.login);
+
+          if (findUser) {
+            token.id = String(findUser.id);
+            token.login = findUser.login;
+            token.role = findUser.role;
+          }
+        }
+
+        return token;
+      } catch (error) {
+        console.error('Error in jwt callback:', error);
+        return token;
       }
-      return token;
     },
 
     session({ session, token }) {

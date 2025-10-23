@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
   Button,
@@ -15,8 +16,12 @@ interface Props {
 }
 
 export const Login: React.FC<Props> = () => {
+  const [open, setOpen] = React.useState(false);
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size='lg' className='px-8 py-4'>
           Войти
@@ -29,7 +34,7 @@ export const Login: React.FC<Props> = () => {
             Введите логин и пароль для входа в аккаунт
           </DialogDescription>
         </DialogHeader>
-        <LoginForm />
+        <LoginForm onClose={onClose} />
       </DialogContent>
     </Dialog>
   );

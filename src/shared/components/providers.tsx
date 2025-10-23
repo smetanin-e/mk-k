@@ -5,20 +5,23 @@ import NextTopLoader from 'nextjs-toploader';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'next-themes';
 import { Theme } from './theme';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '../lib/query-client';
 
 export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
   const color = 'var(--color-primary)';
   return (
     <>
       {' '}
-      <ThemeProvider attribute={'class'} enableSystem defaultTheme='system'>
-        <SessionProvider>
-          {children}
+      <SessionProvider>
+        <ThemeProvider attribute={'class'} enableSystem defaultTheme='system'>
+          <QueryClientProvider client={queryClient}> {children}</QueryClientProvider>
+
           <Theme />
           <Toaster />
           <NextTopLoader color={color} shadow={`0 0 10px ${color},0 0 5px ${color}`} />
-        </SessionProvider>{' '}
-      </ThemeProvider>
+        </ThemeProvider>
+      </SessionProvider>{' '}
     </>
   );
 };
