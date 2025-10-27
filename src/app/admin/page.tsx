@@ -1,7 +1,7 @@
 import { getUserSession } from '@/features/auth/actions/get-user-session';
 import { Header } from '@/shared/components/header';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui';
-import { UserList } from '@/widgets/users/ui/user-list';
+import { Users } from '@/widgets/users/ui/users';
+
 import { UserRole } from '@prisma/client';
 import { redirect } from 'next/navigation';
 
@@ -17,16 +17,7 @@ export default async function AdminPage() {
         description='Управление пользователями и их ролями'
         user={user}
       />
-      <Card>
-        <CardHeader className='flex items-center justify-between'>
-          <CardTitle>Список пользователей</CardTitle>
-          {/* <AddUser /> */}
-        </CardHeader>
-        <CardContent>
-          {' '}
-          <UserList admin={user} />
-        </CardContent>
-      </Card>
+      <Users user={user} />
     </div>
   );
 }

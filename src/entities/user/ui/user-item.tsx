@@ -2,6 +2,8 @@ import { TableCell, TableRow } from '@/shared/components/ui';
 import React from 'react';
 import { Agent } from '../model/types';
 import { Minus, Shield } from 'lucide-react';
+import { ChangeUserStatus } from '@/features/user/ui/change-user-status';
+import { UpdateUserModal } from '@/features/user/ui/update-user-modal';
 
 interface Props {
   className?: string;
@@ -12,7 +14,7 @@ interface Props {
 export const UserItem: React.FC<Props> = ({ user, currentUserId }) => {
   return (
     <TableRow>
-      <TableCell className='flex items-center gap-4'>
+      <TableCell className='flex items-center gap-4 py-4'>
         <div className='font-medium'>{`${user.surname} ${user.firstName} ${user.lastName}`}</div>
         {currentUserId === user.id && <Shield className='h-5 w-5' color='green' />}
       </TableCell>
@@ -21,12 +23,7 @@ export const UserItem: React.FC<Props> = ({ user, currentUserId }) => {
 
       <TableCell>
         <div className='flex items-center gap-2'>
-          {/* <Switch
-                        checked={user.status}
-                        disabled={loading || user.id === admin.id}
-                        onCheckedChange={() => toggleStatus(user.id, admin.id)}
-                        className='data-[state=checked]:bg-success data-[state=unchecked]:bg-gray-400'
-                      /> */}
+          <ChangeUserStatus userId={user.id} status={user.status} />
           <span>{user.status ? 'Активен' : 'Заблокирован'}</span>
         </div>
       </TableCell>
@@ -42,6 +39,7 @@ export const UserItem: React.FC<Props> = ({ user, currentUserId }) => {
           </div>
         ) : (
           <>
+            <UpdateUserModal user={user} />
             {/* <UpdateUser user={user} />
                         <DeleteUser
                           loading={loading}

@@ -1,5 +1,8 @@
 import { prisma } from '@/shared/lib/prisma-client';
 import { AuthUser } from '../model/types';
+import { CreateUserType } from '@/features/user/model/schemas/create-user-schema';
+import { generateSalt, hashPassword } from '@/shared/lib/auth/password-utils';
+import { UpdateUserType } from '@/features/user/model/schemas/update-user-schema';
 
 export const userRepository = {
   async findUserByLogin(login: string) {
@@ -37,5 +40,30 @@ export const userRepository = {
       },
       orderBy: { surname: 'asc' },
     });
+  },
+
+  async createUser(formData: CreateUserType) {
+    const salt = generateSalt();
+    const hashedPassword = await hashPassword(formData.password, salt);
+    return prisma.user.create({
+      data: {
+        login: formData.login,
+        password: hashedPassword,
+        salt,
+        surname: formData.surname,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        role: formData.role,
+      },
+    });
+  },
+
+  async toggleUserStatus(userId: number) {
+    const user = await this.findUserById(userId);
+    return prisma.user.update({ where: { id: userId }, data: { status: !user?.status } });
+  },
+
+  async updateUser(userId: number, data: UpdateUserType) {
+    return prisma.user.update({ where: { id: userId }, data });
   },
 };
