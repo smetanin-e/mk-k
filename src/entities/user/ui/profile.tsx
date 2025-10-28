@@ -11,6 +11,7 @@ import { stringToColor, userInitials } from '@/shared/lib';
 import Link from 'next/link';
 import { AuthUser } from '../model/types';
 import { Logout } from '@/features/auth/ui/logout';
+import { ChangePasswordModal } from '@/features/user/ui';
 
 interface Props {
   className?: string;
@@ -36,7 +37,7 @@ export const Profile: React.FC<Props> = ({ user }) => {
         <PopoverContent align='end' className='px-2 py-2 text-right'>
           <div className='flex justify-end items-center'>
             <p className='font-bold text-[12px] px-4'>{`${user.surname} ${user.firstName[0]}.${user.lastName[0]}.`}</p>
-            {/* <ChangePassword id={user.id} /> */}
+            <ChangePasswordModal id={user.id} />
           </div>
 
           <div className='py-2'>

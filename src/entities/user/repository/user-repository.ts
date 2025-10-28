@@ -27,6 +27,31 @@ export const userRepository = {
     return user;
   },
 
+  //для смены пароля
+  async findUserByIdWithPassword(userId: number) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        password: true,
+        salt: true,
+      },
+    });
+
+    if (!user) return null;
+    return user;
+  },
+
+  async updatePassword(userId: number, hashedPassword: string, salt: string) {
+    return await prisma.user.update({
+      where: { id: userId },
+      data: {
+        password: hashedPassword,
+        salt,
+      },
+    });
+  },
+
   async getUsers() {
     return await prisma.user.findMany({
       select: {
@@ -65,5 +90,11 @@ export const userRepository = {
 
   async updateUser(userId: number, data: UpdateUserType) {
     return prisma.user.update({ where: { id: userId }, data });
+  },
+
+  async deleteUser(userId: number) {
+    return prisma.user.delete({
+      where: { id: userId },
+    });
   },
 };

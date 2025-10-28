@@ -4,6 +4,8 @@ import { Agent } from '../model/types';
 import { Minus, Shield } from 'lucide-react';
 import { ChangeUserStatus } from '@/features/user/ui/change-user-status';
 import { UpdateUserModal } from '@/features/user/ui/update-user-modal';
+import { ResetPasswordModal } from '@/features/user/ui';
+import { DeleteUser } from '@/features/user/ui/delete-user';
 
 interface Props {
   className?: string;
@@ -40,17 +42,14 @@ export const UserItem: React.FC<Props> = ({ user, currentUserId }) => {
         ) : (
           <>
             <UpdateUserModal user={user} />
-            {/* <UpdateUser user={user} />
-                        <DeleteUser
-                          loading={loading}
-                          setLoading={setLoading}
-                          id={user.id}
-                          currentUserId={admin.id}
-                        /> */}
+            <DeleteUser
+              userId={user.id}
+              userName={`${user.surname} ${user.firstName} ${user.lastName}`}
+            />
           </>
         )}
         <div className='flex items-center justify-center'>
-          {/* <ChangePassword id={user.id} /> */}
+          <ResetPasswordModal id={user.id} />
         </div>
       </TableCell>
     </TableRow>

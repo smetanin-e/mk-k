@@ -4,6 +4,7 @@ import { createUserAction } from '../../actions/create-user-action';
 import toast from 'react-hot-toast';
 import { toggleUserStatusAction } from '../../actions/toggle-user-status-action';
 import { updateUserAction } from '../../actions/update-user-action';
+import { deleteUserAction } from '../../actions/delete-user-asction';
 
 export const useUserMutations = () => {
   const create = useMutation({
@@ -56,6 +57,21 @@ export const useUserMutations = () => {
     },
   });
 
+  const deleteUser = useMutation({
+    mutationFn: deleteUserAction,
+    onSuccess: async (res) => {
+      if (res.success) {
+        queryClient.invalidateQueries({ queryKey: ['users'] });
+        toast.success('Пользователь удален');
+      } else {
+        toast.error(res.message || 'Ошибка при удалении пользователя');
+      }
+    },
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : 'Не удалось удалить пользователя');
+    },
+  });
+
   return {
     create,
     toggleStatus: {
@@ -65,6 +81,11 @@ export const useUserMutations = () => {
     update: {
       mutateAsync: update.mutateAsync,
       isLoading: update.isPending,
+    },
+
+    deleteUser: {
+      mutateAsync: deleteUser.mutateAsync,
+      isLoading: deleteUser.isPending,
     },
   };
 };
