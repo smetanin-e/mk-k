@@ -1,6 +1,7 @@
 export { Providers } from './providers';
 
 export { Logo } from './logo';
+export { Header } from './header';
 
 export { LoadingBounce } from './loading-bounce';
 

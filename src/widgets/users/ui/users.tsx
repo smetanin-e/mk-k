@@ -17,7 +17,6 @@ export const Users: React.FC<Props> = ({ user }) => {
         <CreateUserModal />
       </CardHeader>
       <CardContent>
-        {' '}
         <UserList admin={user} />
       </CardContent>
     </Card>
