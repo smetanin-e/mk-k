@@ -8,7 +8,7 @@ import React from 'react';
 import { searchPrinterFilter } from '@/entities/printer/model/lib/search-printer-filter';
 import { useGetPrinters } from '@/entities/printer/api/use-get-printers';
 import { PrinterList } from '@/entities/printer/ui';
-import { CreatePrinter } from '@/features/printer/ui';
+import { CreatePrinterModal } from '@/features/printer/ui';
 
 interface Props {
   className?: string;
@@ -45,7 +45,7 @@ export const Printers: React.FC<Props> = () => {
               />
               {searchValue && <ClearButton onClick={onClickClear} />}
             </div>
-            <CreatePrinter />
+            <CreatePrinterModal />
           </div>
         </CardHeader>
         <CardContent className='relative h-[625px]'>

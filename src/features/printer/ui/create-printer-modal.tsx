@@ -16,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-export const CreatePrinter: React.FC<Props> = () => {
+export const CreatePrinterModal: React.FC<Props> = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -37,7 +37,7 @@ export const CreatePrinter: React.FC<Props> = () => {
             Заполните название принтера и выберите совместимые картриджи
           </DialogDescription>
         </DialogHeader>
-        <CreatePrinterForm />
+        <CreatePrinterForm onClose={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   );

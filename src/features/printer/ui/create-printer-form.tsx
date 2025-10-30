@@ -1,3 +1,4 @@
+'use client';
 import { CheckModels } from '@/entities/cartridge-model/ui/check-models';
 import { FormInput } from '@/shared/components/form';
 import { Button } from '@/shared/components/ui';
@@ -7,6 +8,7 @@ import { PreviewCreatePrinter } from './preview-create-printer';
 
 interface Props {
   className?: string;
+  onClose: VoidFunction;
 }
 
 type FormDataType = {
@@ -14,7 +16,7 @@ type FormDataType = {
   models: number[];
 };
 
-export const CreatePrinterForm: React.FC<Props> = () => {
+export const CreatePrinterForm: React.FC<Props> = ({ onClose }) => {
   const form = useForm({
     defaultValues: {
       name: '',
@@ -58,15 +60,19 @@ export const CreatePrinterForm: React.FC<Props> = () => {
         {/* Выбор существующих моделей */}
         <CheckModels />
 
-        {/* Добавление новой модели */}
-
         {/* Превью */}
         <PreviewCreatePrinter />
+
         <div className='flex justify-end gap-8'>
           <Button disabled={disabled || form.formState.isSubmitting} type='submit'>
             Добавить принтер
           </Button>
-          <Button disabled={form.formState.isSubmitting} type='button' variant={'outline'}>
+          <Button
+            disabled={form.formState.isSubmitting}
+            type='button'
+            variant={'outline'}
+            onClick={onClose}
+          >
             Отмена
           </Button>
         </div>
