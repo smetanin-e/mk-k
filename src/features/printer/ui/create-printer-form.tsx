@@ -1,0 +1,76 @@
+import { CheckModels } from '@/entities/cartridge-model/ui/check-models';
+import { FormInput } from '@/shared/components/form';
+import { Button } from '@/shared/components/ui';
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { PreviewCreatePrinter } from './preview-create-printer';
+
+interface Props {
+  className?: string;
+}
+
+type FormDataType = {
+  name: string;
+  models: number[];
+};
+
+export const CreatePrinterForm: React.FC<Props> = () => {
+  const form = useForm({
+    defaultValues: {
+      name: '',
+      models: [] as number[],
+    },
+  });
+
+  const onSubmit = async (data: FormDataType) => {
+    try {
+      const payload = {
+        name: data.name,
+        models: data.models.map((id: number) => id),
+      };
+
+      console.log(payload);
+
+      form.reset();
+    } catch (error) {
+      console.log('Error [ADD_PRINTER_FORM]', error);
+    } finally {
+    }
+  };
+
+  const disabled =
+    !form.watch('models') ||
+    form.watch('models').length === 0 ||
+    !form.watch('name') ||
+    form.watch('name').length === 0;
+
+  return (
+    <FormProvider {...form}>
+      <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
+        <FormInput
+          name='name'
+          label='Модель принтера'
+          type='text'
+          placeholder='Например, HP LaserJet Pro M404dn'
+          required
+        />
+
+        {/* Выбор существующих моделей */}
+        <CheckModels />
+
+        {/* Добавление новой модели */}
+
+        {/* Превью */}
+        <PreviewCreatePrinter />
+        <div className='flex justify-end gap-8'>
+          <Button disabled={disabled || form.formState.isSubmitting} type='submit'>
+            Добавить принтер
+          </Button>
+          <Button disabled={form.formState.isSubmitting} type='button' variant={'outline'}>
+            Отмена
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
+  );
+};

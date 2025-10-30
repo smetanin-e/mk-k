@@ -19,8 +19,7 @@ interface Props {
 
 export const RegisterCartridgeForm: React.FC<Props> = ({ onClose }) => {
   const { create } = useCartridgesMutations();
-  const { data } = useGetModels();
-  const models = data ? data : [];
+  const { data: models } = useGetModels();
 
   const form = useForm<RegisterCartridgeFormType>({
     resolver: zodResolver(registerCartridgeSchema),
@@ -66,11 +65,11 @@ export const RegisterCartridgeForm: React.FC<Props> = ({ onClose }) => {
         </div>
 
         <div className='pt-4 flex justify-end gap-8'>
-          <Button type='button' variant='outline' onClick={onClose}>
-            Отмена
-          </Button>
           <Button disabled={form.formState.isSubmitting} type='submit'>
             Сохранить
+          </Button>
+          <Button type='button' variant='outline' onClick={onClose}>
+            Отмена
           </Button>
         </div>
       </form>

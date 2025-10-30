@@ -9,6 +9,8 @@ import {
 } from '@/shared/components/ui';
 import { CartridgeDTO } from '../model/types';
 import { getStatusBadge } from './get-status-badge';
+import { DeleteCartridge } from '@/features/cartridge/ui';
+import { ChangeCartridgeStatus } from '@/features/cartridge/ui/change-cartridge-status';
 
 interface Props {
   className?: string;
@@ -43,8 +45,8 @@ export const CartridgesTable: React.FC<Props> = ({ count, items }) => {
                   <TableCell>{cartridge.model?.model}</TableCell>
                   <TableCell>{getStatusBadge(cartridge.status)}</TableCell>
                   <TableCell className='flex items-center justify-end gap-6'>
-                    {/* <CartridgeActions id={cartridge.id} currentStatus={cartridge.status} />
-                    <DeleteCartridge id={cartridge.id} /> */}
+                    <ChangeCartridgeStatus id={cartridge.id} currentStatus={cartridge.status} />
+                    <DeleteCartridge cartridgeId={cartridge.id} cartridgeLabel={cartridge.label} />
                   </TableCell>
                 </TableRow>
               ))}

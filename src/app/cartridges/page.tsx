@@ -1,7 +1,7 @@
-import { RegisterModel } from '@/entities/cartridge-model/ui';
 import { getUserSession } from '@/features/auth/actions/get-user-session';
 import { Header } from '@/shared/components';
 import { CartridgeList } from '@/widgets/cartridges/ui/cartridge-list';
+import { Printers } from '@/widgets/printers/ui/printers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -22,9 +22,7 @@ export default async function CartridgesPage() {
         </div>
 
         {/* Таблица принтеров */}
-
-        {/* Модальное окно регистрации новой модели */}
-        <RegisterModel />
+        <Printers />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { prisma } from '@/shared/lib/prisma-client';
 import { CartridgeDTO } from '../model/types';
 import { RegisterCartridgeFormType } from '@/features/cartridge/model/schemas/register-сartrige-schema';
+import { CartridgeStatus } from '@prisma/client';
 
 export const cartridgeRepository = {
   async getCartridges(): Promise<CartridgeDTO[]> {
@@ -20,6 +21,20 @@ export const cartridgeRepository = {
     });
   },
 
+  async findById(id: number) {
+    return prisma.cartridge.findFirst({
+      where: { id },
+      include: { serviceBatchEntries: true, replacementInstalled: true, replacementRemoved: true },
+    });
+  },
+
+  async findByIdWithRelations(id: number) {
+    return prisma.cartridge.findFirst({
+      where: { id },
+      include: { serviceBatchEntries: true, replacementInstalled: true, replacementRemoved: true },
+    });
+  },
+
   async create(formData: RegisterCartridgeFormType) {
     return prisma.cartridge.create({
       data: {
@@ -28,6 +43,21 @@ export const cartridgeRepository = {
         numericLabel: parseInt(formData.label.replace(/\D/g, ''), 10),
         status: formData.status,
       },
+    });
+  },
+
+  async updateStatus(id: number, status: CartridgeStatus) {
+    return prisma.cartridge.update({
+      where: { id },
+      data: {
+        status,
+      },
+    });
+  },
+
+  async deleteCartridge(id: number) {
+    return prisma.cartridge.delete({
+      where: { id },
     });
   },
 };

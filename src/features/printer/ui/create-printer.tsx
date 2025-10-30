@@ -9,33 +9,35 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/shared/components/ui';
-import { Plus, ToyBrick } from 'lucide-react';
-import { RegisterCartridgeForm } from './register-cartridge-form';
+import { Plus, PrinterIcon } from 'lucide-react';
+import { CreatePrinterForm } from './create-printer-form';
 
 interface Props {
   className?: string;
 }
 
-export const RegisterCartridgeModal: React.FC<Props> = () => {
+export const CreatePrinter: React.FC<Props> = () => {
   const [open, setOpen] = React.useState(false);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size={'sm'}>
-          <Plus className='h-4 w-4' />
-          Добавить картридж
+          <Plus className='h-4 w-4 mr-2' />
+          Добавить принтер
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className='flex items-center gap-2'>
-            <ToyBrick className='h-5 w-5' />
-            Добавление картриджа в реестр
+            <PrinterIcon className='h-5 w-5' />
+            Добавить новый принтер
           </DialogTitle>
-          <DialogDescription>Заполните номер и выберите модель картриджа</DialogDescription>
+          <DialogDescription>
+            Заполните название принтера и выберите совместимые картриджи
+          </DialogDescription>
         </DialogHeader>
-
-        <RegisterCartridgeForm onClose={() => setOpen(false)} />
+        <CreatePrinterForm />
       </DialogContent>
     </Dialog>
   );

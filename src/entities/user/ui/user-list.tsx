@@ -14,30 +14,36 @@ interface Props {
 
 export const UserList: React.FC<Props> = ({ admin }) => {
   const { data, isLoading } = useGetUsers();
+  const users = data ? data : [];
   return (
     <div className='relative min-h-[210px]'>
       {isLoading ? (
         <LoadingBounce />
       ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ФИО</TableHead>
-              <TableHead>Логин</TableHead>
-              <TableHead>Роль</TableHead>
-              <TableHead className=' w-40'>Статус</TableHead>
-              <TableHead className='text-right'>Управление</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.length === 0 ? (
-              <div className='text-center py-8 text-muted-foreground'>Нет пользователей</div>
-            ) : (
-              data?.map((user) => <UserItem key={user.id} user={user} currentUserId={admin.id} />)
-            )}
-          </TableBody>
-        </Table>
-      )}{' '}
+        <>
+          {users.length === 0 ? (
+            <div className='text-center py-8 text-muted-foreground'>Нет пользователей</div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ФИО</TableHead>
+                  <TableHead>Логин</TableHead>
+                  <TableHead>Роль</TableHead>
+                  <TableHead className=' w-40'>Статус</TableHead>
+                  <TableHead className='text-right'>Управление</TableHead>
+                </TableRow>
+              </TableHeader>
+
+              <TableBody>
+                {users.map((user) => (
+                  <UserItem key={user.id} user={user} currentUserId={admin.id} />
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </>
+      )}
     </div>
   );
 };
