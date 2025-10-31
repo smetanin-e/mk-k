@@ -1,7 +1,7 @@
 'use server';
 
 import { modelRepository } from '@/entities/cartridge-model/repository/model-repository';
-import { RegisterModelFormType } from '@/entities/cartridge-model/schema/model-schema';
+import { RegisterModelFormType } from '@/entities/cartridge-model/model/schema/model-schema';
 
 export const registerModelAction = async (formData: RegisterModelFormType) => {
   try {

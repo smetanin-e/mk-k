@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma-client';
-import { RegisterModelFormType } from '../schema/model-schema';
+import { RegisterModelFormType } from '../model/schema/model-schema';
 
 export const modelRepository = {
   async getModels() {

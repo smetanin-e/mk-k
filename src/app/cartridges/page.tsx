@@ -18,13 +18,13 @@ export default async function CartridgesPage() {
       />
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
         <div className='space-y-6'>
-          {' '}
           <CartridgeList />
         </div>
 
         {/* Таблица принтеров */}
         <Printers />
       </div>
+      {/* Модалка добавления модели (Вызываем в CartridgeList и Printers ) */}
       <RegisterModel />
     </div>
   );

@@ -1,5 +1,8 @@
+import { CreateDepartamentModal } from '@/entities/departament/ui';
 import { getUserSession } from '@/features/auth/actions/get-user-session';
 import { Header } from '@/shared/components/header';
+import { Stats } from '@/widgets/cartridges/ui';
+import { ReplacementList } from '@/widgets/replacement/ui';
 import { redirect } from 'next/navigation';
 
 export default async function Replacement() {
@@ -14,6 +17,11 @@ export default async function Replacement() {
         user={user}
       />
       {/* Статистика */}
+      <Stats />
+
+      <ReplacementList />
+
+      <CreateDepartamentModal />
     </div>
   );
 }

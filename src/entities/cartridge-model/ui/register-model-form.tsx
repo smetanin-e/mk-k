@@ -4,7 +4,7 @@ import { Button } from '@/shared/components/ui';
 import { Plus } from 'lucide-react';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { RegisterModelFormType, registerModelSchema } from '../schema/model-schema';
+import { RegisterModelFormType, registerModelSchema } from '../model/schema/model-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useModelsStore } from '../model/store';
 import { useModelMutations } from '@/features/cartridge-model/model/hooks/use-model-mutation';
