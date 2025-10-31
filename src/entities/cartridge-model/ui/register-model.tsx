@@ -1,15 +1,13 @@
 'use client';
 
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/shared/components/ui';
-import { Package, Plus } from 'lucide-react';
+import { Package } from 'lucide-react';
 import React from 'react';
 
 import { useModelsStore } from '../model/store';
@@ -21,14 +19,9 @@ interface Props {
 
 export const RegisterModel: React.FC<Props> = () => {
   const { openModal, setOpenModal } = useModelsStore();
+
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
-      <DialogTrigger asChild>
-        <Button variant='outline'>
-          <Plus className='h-4 w-4' />
-          Добавить модель
-        </Button>
-      </DialogTrigger>
       <DialogContent className='space-y-4'>
         <DialogHeader>
           <DialogTitle className='flex items-center gap-2'>

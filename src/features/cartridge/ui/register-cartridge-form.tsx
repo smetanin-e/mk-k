@@ -9,7 +9,7 @@ import {
   registerCartridgeSchema,
 } from '../model/schemas/register-сartrige-schema';
 import { useGetModels } from '@/entities/cartridge-model/api/use-get-mogels';
-import { RegisterModel } from '@/entities/cartridge-model/ui';
+import { ButtonRegisterModel } from '@/entities/cartridge-model/ui';
 import { useCartridgesMutations } from '../model/hooks/use-cartridge-mutation';
 
 interface Props {
@@ -58,7 +58,7 @@ export const RegisterCartridgeForm: React.FC<Props> = ({ onClose }) => {
             getKey={(m) => m.id}
             getLabel={(m) => m.model}
             renderItem={(m) => m.model}
-            onAdd={<RegisterModel />}
+            onAdd={<ButtonRegisterModel />}
           />
 
           <FormSelect required name='status' label='Состояние картриджа' data={CARTRIDGE_STATUS} />

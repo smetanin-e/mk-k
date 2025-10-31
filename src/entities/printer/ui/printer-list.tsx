@@ -9,6 +9,7 @@ import {
   TableRow,
 } from '@/shared/components/ui';
 import { PrinterDTO } from '../model/types';
+import { DeletePrinter } from '@/features/printer/ui';
 
 interface Props {
   className?: string;
@@ -44,7 +45,10 @@ export const PrinterList: React.FC<Props> = ({ printers }) => {
                 )}
               </div>
             </TableCell>
-            <TableCell>{/* <DeletePrinter id={printer.id} /> */}</TableCell>
+            <TableCell className='text-center'>
+              {' '}
+              <DeletePrinter printerId={printer.id} printerName={printer.name} />{' '}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

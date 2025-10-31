@@ -2,8 +2,8 @@
 import { FormCheckbox } from '@/shared/components/form';
 import { Card, CardContent, Label } from '@/shared/components/ui';
 import React from 'react';
-import { RegisterModel } from './register-model';
 import { useGetModels } from '../api/use-get-mogels';
+import { ButtonRegisterModel } from './button-register-model';
 
 interface Props {
   className?: string;
@@ -25,7 +25,7 @@ export const CheckModels: React.FC<Props> = () => {
             ))}
           </div>
           <div className='text-right'>
-            <RegisterModel />
+            <ButtonRegisterModel />
           </div>
         </CardContent>
       </Card>

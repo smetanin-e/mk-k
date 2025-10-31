@@ -5,18 +5,20 @@ import { Button } from '@/shared/components/ui';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { PreviewCreatePrinter } from './preview-create-printer';
+import { usePrintersMutations } from '../model/hooks/use-printer-mutation';
 
 interface Props {
   className?: string;
   onClose: VoidFunction;
 }
 
-type FormDataType = {
+export type FormDataType = {
   name: string;
   models: number[];
 };
 
 export const CreatePrinterForm: React.FC<Props> = ({ onClose }) => {
+  const { create } = usePrintersMutations();
   const form = useForm({
     defaultValues: {
       name: '',
@@ -28,15 +30,16 @@ export const CreatePrinterForm: React.FC<Props> = ({ onClose }) => {
     try {
       const payload = {
         name: data.name,
-        models: data.models.map((id: number) => id),
+        models: data.models.map((id: number) => ({ id })),
       };
 
-      console.log(payload);
+      await create.mutateAsync(payload);
 
       form.reset();
     } catch (error) {
       console.log('Error [ADD_PRINTER_FORM]', error);
     } finally {
+      onClose();
     }
   };
 
