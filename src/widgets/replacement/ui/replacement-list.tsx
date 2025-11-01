@@ -3,10 +3,10 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, Input } from '@/shared/components/ui';
 import { ClearButton, LoadingBounce, ShowMore } from '@/shared/components';
 import { Search } from 'lucide-react';
-import { CartridgeStatus } from '@prisma/client';
 import { ReplacementModal } from '@/features/replacement/ui';
 
-import { useUserSession } from '@/features/auth/model/hooks/use-session';
+import { useGetReplacements } from '@/entities/replacement/api/use-get-replacements';
+import { ReplacementTable } from '@/entities/replacement/ui';
 
 interface Props {
   className?: string;
@@ -15,21 +15,12 @@ interface Props {
 export const ReplacementList: React.FC<Props> = () => {
   const [searchValue, setSearchValue] = React.useState('');
 
-  //   const { loading, loadReplacemens, loadingInitial, replacements, showMore } = useReplacementList(
-  //     searchValue,
-  //     9,
-  //   );
-
   const onClickClear = () => {
     setSearchValue('');
   };
 
-  //   const avaibleCartridges = cartridges.filter(
-  //     (cartridge) => cartridge.status === CartridgeStatus.AVAILABLE,
-  //   );
-  //   const workingCartridges = cartridges.filter(
-  //     (cartridge) => cartridge.status === CartridgeStatus.WORKING,
-  //   );
+  const { data, isLoading } = useGetReplacements();
+  const replacements = data?.pages.flatMap((page) => page.replacements) ?? [];
 
   return (
     <>
@@ -55,8 +46,8 @@ export const ReplacementList: React.FC<Props> = () => {
             <ReplacementModal />
           </div>
         </CardHeader>
-        {/* <div className='min-h-[50px] relative'>
-          {loadingInitial ? (
+        <div className='min-h-[50px] relative'>
+          {isLoading ? (
             <LoadingBounce />
           ) : (
             <CardContent>
@@ -64,12 +55,12 @@ export const ReplacementList: React.FC<Props> = () => {
                 <div className='text-center py-8 text-muted-foreground'>Ничего не найдено</div>
               ) : (
                 <div>
-                  <ReplacementTable items={replacements} cartridges={cartridges} />
+                  <ReplacementTable items={replacements} />
                 </div>
               )}
             </CardContent>
           )}
-        </div> */}
+        </div>
         {/* <ShowMore showMore={showMore} loading={loading} loadItems={loadReplacemens} /> */}
       </Card>
     </>
