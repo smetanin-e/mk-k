@@ -4,5 +4,13 @@ import { useSession } from 'next-auth/react';
 
 export const useUserSession = () => {
   const { data, status } = useSession();
-  return { user: data?.user, isLoading: status === 'loading' };
+
+  const user = data?.user
+    ? {
+        ...data.user,
+        id: Number(data.user.id),
+      }
+    : undefined;
+
+  return { user, isLoading: status === 'loading' };
 };

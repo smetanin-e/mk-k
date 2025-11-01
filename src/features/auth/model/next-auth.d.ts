@@ -8,7 +8,10 @@ declare module 'next-auth' {
       id: string;
       role: UserRole;
       login: string;
-      //TODO поправить типы под себя
+      surname: string;
+      firstName: string;
+      lastName: string;
+      status: boolean;
     };
   }
 
@@ -16,10 +19,10 @@ declare module 'next-auth' {
     id: number;
     login: string;
     role: UserRole;
-    // surname: string;
-    // firstName: string;
-    // lastName: string;
-    // status: boolean;
+    surname: string;
+    firstName: string;
+    lastName: string;
+    status: boolean;
   }
 }
 
@@ -28,5 +31,9 @@ declare module 'next-auth/jwt' {
     id: string;
     role: UserRole;
     login: string;
+    surname: string;
+    firstName: string;
+    lastName: string;
+    status: boolean;
   }
 }

@@ -48,11 +48,10 @@ export const authOptions: AuthOptions = {
           id: findUser.id,
           login: findUser.login,
           role: findUser.role,
-          //   surmane: findUser.surname,
-          //   firstName: findUser.firstName,
-          //   lastName: findUser.lastName,
-          //   status: findUser.status,
-          //TODO Добавить нужные поля
+          surmane: findUser.surname,
+          firstName: findUser.firstName,
+          lastName: findUser.lastName,
+          status: findUser.status,
         };
       },
     }),
@@ -73,6 +72,10 @@ export const authOptions: AuthOptions = {
           token.id = String(user.id);
           token.login = user.login;
           token.role = user.role;
+          token.surname = user.surname;
+          token.firstName = user.firstName;
+          token.lastName = user.lastName;
+          token.status = user.status;
         }
 
         // Обновляем из БД только если есть login
@@ -83,6 +86,10 @@ export const authOptions: AuthOptions = {
             token.id = String(findUser.id);
             token.login = findUser.login;
             token.role = findUser.role;
+            token.surname = findUser.surname;
+            token.firstName = findUser.firstName;
+            token.lastName = findUser.lastName;
+            token.status = findUser.status;
           }
         }
 
@@ -97,6 +104,12 @@ export const authOptions: AuthOptions = {
       if (session?.user) {
         session.user.id = token.id;
         session.user.role = token.role;
+        session.user.login = token.login;
+
+        session.user.surname = token.surname;
+        session.user.firstName = token.firstName;
+        session.user.lastName = token.lastName;
+        session.user.status = token.status;
       }
 
       return session;

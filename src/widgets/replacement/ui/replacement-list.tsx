@@ -4,6 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle, Input } from '@/shared/compon
 import { ClearButton, LoadingBounce, ShowMore } from '@/shared/components';
 import { Search } from 'lucide-react';
 import { CartridgeStatus } from '@prisma/client';
+import { ReplacementModal } from '@/features/replacement/ui';
+
+import { useUserSession } from '@/features/auth/model/hooks/use-session';
 
 interface Props {
   className?: string;
@@ -49,10 +52,7 @@ export const ReplacementList: React.FC<Props> = () => {
             </div>
 
             {/* Попап замены картриджа */}
-            {/* <Replacement
-              avaibleCartridges={avaibleCartridges}
-              workingCartridges={workingCartridges}
-            /> */}
+            <ReplacementModal />
           </div>
         </CardHeader>
         {/* <div className='min-h-[50px] relative'>

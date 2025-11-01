@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export const useGetDepartaments = () => {
   return useQuery<Departament[]>({
-    queryKey: ['models'],
+    queryKey: ['departaments'],
     queryFn: async () => {
       return (
         await axiosInstance.get<Departament[]>('/departament', {

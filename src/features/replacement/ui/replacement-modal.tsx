@@ -12,15 +12,12 @@ import {
   DialogTrigger,
 } from '@/shared/components/ui';
 import { ReplacementForm } from './replacement-form';
-import { CartridgeDTO } from '@/entities/cartridge/model/types';
 
 interface Props {
   className?: string;
-  avaibleCartridges: CartridgeDTO[];
-  workingCartridges: CartridgeDTO[];
 }
 
-export const ReplacementModal: React.FC<Props> = ({ avaibleCartridges, workingCartridges }) => {
+export const ReplacementModal: React.FC<Props> = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -40,7 +37,7 @@ export const ReplacementModal: React.FC<Props> = ({ avaibleCartridges, workingCa
         </DialogHeader>
 
         <div>
-          <ReplacementForm />
+          <ReplacementForm onClose={() => setOpen(false)} />
         </div>
       </DialogContent>
     </Dialog>

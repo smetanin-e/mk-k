@@ -6,6 +6,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createDepartamentSchema, FormDepartamentType } from '../model/schema/departament-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useDepartamentMutations } from '@/features/departament/model/hooks/use-departament-mutation';
 
 interface Props {
   className?: string;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export const DepartamentForm: React.FC<Props> = ({ onClose }) => {
+  const { create } = useDepartamentMutations();
   const form = useForm<FormDepartamentType>({
     resolver: zodResolver(createDepartamentSchema),
     defaultValues: {
@@ -22,7 +24,7 @@ export const DepartamentForm: React.FC<Props> = ({ onClose }) => {
 
   const onSubmit = async (data: FormDepartamentType) => {
     try {
-      console.log(data);
+      await create.mutateAsync(data);
     } catch (error) {
       console.log('Error [DEPARTAMENT_FORM]', error);
     } finally {

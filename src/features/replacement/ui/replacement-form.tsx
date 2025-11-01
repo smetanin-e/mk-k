@@ -1,19 +1,24 @@
-import { CartridgeDTO } from '@/entities/cartridge/model/types';
-import { getStatusBadge } from '@/entities/cartridge/ui';
-import { FormCustomSelect, FormDate } from '@/shared/components/form';
-import { Badge, Button } from '@/shared/components/ui';
+import { CartridgeSelect } from '@/entities/cartridge/ui';
+import { FormDate } from '@/shared/components/form';
+import { Button } from '@/shared/components/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus } from 'lucide-react';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ReplacementFormType, replacementSchema } from '../model/schemas/replacement-schema';
 import { convertDate } from '@/shared/lib';
+import { DepartamentSelect } from '@/entities/departament/ui';
+import { useGetCartridges } from '@/entities/cartridge/api/use-get-cartridges';
+import { CartridgeStatus } from '@prisma/client';
+import { ResponsibleForm } from '@/entities/user/ui';
+import { useReplacementMutations } from '../model/hooks/use-replacement-mutation';
 
 interface Props {
   className?: string;
+  onClose: VoidFunction;
 }
 
-export const ReplacementForm: React.FC<Props> = () => {
+export const ReplacementForm: React.FC<Props> = ({ onClose }) => {
+  const { create } = useReplacementMutations();
   const form = useForm<ReplacementFormType>({
     resolver: zodResolver(replacementSchema),
     defaultValues: {
@@ -27,94 +32,43 @@ export const ReplacementForm: React.FC<Props> = () => {
     try {
       data.date = convertDate(data.date);
       console.log(data);
+      await create.mutateAsync(data);
       form.reset();
     } catch (error) {
       console.log('Error [REPLACEMENT_FORM]', error);
     } finally {
+      onClose();
     }
   };
+
+  //TODO СДЕЛАТЬ ФИЛЬТРАЦИЮ НА СТОРОНЕ СЕРВЕРА
+  const { data } = useGetCartridges();
+  const cartridges = data ? data : [];
+  const avaibleCartridges = cartridges.filter((c) => c.status === CartridgeStatus.AVAILABLE);
+  const workingCartridges = cartridges.filter((c) => c.status === CartridgeStatus.WORKING);
 
   return (
     <FormProvider {...form}>
       <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
         <FormDate name='date' required />
-        <FormCustomSelect<Departament>
-          name={'departamentId'}
-          label='Подразделение'
-          required
-          error='Нужно указать подразделение'
-          items={departaments}
-          placeholder='Укажите подразделение'
-          getKey={(c) => c.id}
-          getLabel={(c) => c.name}
-          renderValue={(c) => c.name}
-          renderItem={(c) => c.name}
-          onAdd={
-            <Button
-              type='button'
-              variant={'outline'}
-              size={'sm'}
-              onClick={() => setOpenModal(true)}
-            >
-              <Plus className='h-4 w-4 mr-2' />
-              Добавить
-            </Button>
-          }
-        />
+        <DepartamentSelect />
 
-        <FormCustomSelect<CartridgeDTO>
-          name={'installedCartridge'}
+        <CartridgeSelect
+          name='installedCartridge'
           label='Установленный картридж'
           items={avaibleCartridges}
-          placeholder='---'
-          getKey={(c) => c.id}
-          getLabel={(c) => c.label}
-          renderValue={(c) => (
-            <div className='flex gap-2 items-center flex-1'>
-              <span>{c.label}</span>
-              <Badge variant='secondary'>{c.model?.model}</Badge>
-              {getStatusBadge(c.status)}
-            </div>
-          )}
-          renderItem={(c) => (
-            <div className='grid grid-cols-[auto_1fr_auto] items-center gap-2 w-full'>
-              <div>{c.label}</div>
-              <Badge variant='outline'>
-                <strong>{c.model?.model}</strong>
-              </Badge>
-              <div>{getStatusBadge(c.status)}</div>
-            </div>
-          )}
         />
-
-        <FormCustomSelect<CartridgeDTO>
-          name={'removedCartridge'}
+        <CartridgeSelect
+          name='removedCartridge'
           label='Снятый картридж'
           items={workingCartridges}
-          placeholder='---'
-          getKey={(c) => c.id}
-          getLabel={(c) => c.label}
-          renderValue={(c) => (
-            <div className='flex gap-2 items-center flex-1'>
-              <span>{c.label}</span>
-              <Badge variant='secondary'>{c.model?.model}</Badge>
-              {getStatusBadge(c.status)}
-            </div>
-          )}
-          renderItem={(c) => (
-            <div className='grid grid-cols-[auto_1fr_auto] items-center gap-2 w-full'>
-              <div>{c.label}</div>
-              <Badge variant='outline'>
-                <strong>{c.model?.model}</strong>
-              </Badge>
-              <div>{getStatusBadge(c.status)}</div>
-            </div>
-          )}
         />
 
-        {/* <ResponsibleForm /> */}
+        <ResponsibleForm />
 
-        <Button type='submit'>Подтвердить</Button>
+        <Button disabled={form.formState.isSubmitting} type='submit'>
+          {form.formState.isSubmitting ? 'Оформление...' : 'Подтвердить'}
+        </Button>
       </form>
     </FormProvider>
   );
