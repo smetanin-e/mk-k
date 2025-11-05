@@ -7,10 +7,10 @@ interface Props {
   className?: string;
   showMore: boolean;
   loading: boolean;
-  loadItems: () => void;
+  onClick?: VoidFunction;
 }
 
-export const ShowMore: React.FC<Props> = ({ showMore, loading, loadItems }) => {
+export const ShowMore: React.FC<Props> = ({ showMore, loading, onClick }) => {
   return (
     <div className='pt-4 text-center absolute bottom-[8px] left-[50%]'>
       {showMore && (
@@ -25,7 +25,7 @@ export const ShowMore: React.FC<Props> = ({ showMore, loading, loadItems }) => {
               size='sm'
               disabled={loading}
               variant='ghost'
-              onClick={() => loadItems()}
+              onClick={onClick}
             >
               <ChevronsDown />
             </Button>

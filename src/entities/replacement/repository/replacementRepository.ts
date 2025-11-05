@@ -2,6 +2,27 @@ import { prisma } from '@/shared/lib/prisma-client';
 import { Replace } from '../model/types';
 
 export const replacementRepository = {
+  async findById(replacementId: number) {
+    return prisma.replacement.findFirst({ where: { id: replacementId } });
+  },
+
+  async usedAfter(replacementId: number, installed: string, removed: string, createdAt: Date) {
+    return prisma.replacement.findFirst({
+      where: {
+        id: { not: replacementId },
+        AND: [
+          {
+            createdAt: { gt: createdAt },
+            OR: [
+              { installedCartridgeLabel: installed || removed },
+              { removedCartridgeLabel: installed || removed },
+            ],
+          },
+        ],
+      },
+    });
+  },
+
   async getFilteredRemlacements(search: string, take?: number, skip?: number) {
     return prisma.replacement.findMany({
       where: search
@@ -34,5 +55,9 @@ export const replacementRepository = {
         responsible: data.responsible,
       },
     });
+  },
+
+  async deleteById(replacementId: number) {
+    return prisma.replacement.delete({ where: { id: replacementId } });
   },
 };

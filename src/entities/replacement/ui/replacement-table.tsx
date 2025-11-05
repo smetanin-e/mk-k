@@ -10,6 +10,7 @@ import {
 } from '@/shared/components/ui';
 import { ReplacementDTO } from '../model/types';
 import { useGetCartridges } from '@/entities/cartridge/api/use-get-cartridges';
+import { CancelReplacement } from '@/features/replacement/ui';
 
 interface Props {
   className?: string;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const ReplacementTable: React.FC<Props> = ({ items }) => {
+  console.log(items);
   //получаем модель картриджа для отображения рядом с номером
   const { data } = useGetCartridges();
   const cartridges = data ? data : [];
@@ -71,7 +73,10 @@ export const ReplacementTable: React.FC<Props> = ({ items }) => {
               </Badge>
             </TableCell>
             <TableCell>{rep.responsible}</TableCell>
-            <TableCell>{/* <DeleteReplace id={rep.id} /> */}</TableCell>
+            <TableCell className='text-center'>
+              {' '}
+              <CancelReplacement replacementId={rep.id} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

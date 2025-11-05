@@ -19,7 +19,8 @@ export const ReplacementList: React.FC<Props> = () => {
     setSearchValue('');
   };
 
-  const { data, isLoading } = useGetReplacements();
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useGetReplacements(searchValue);
   const replacements = data?.pages.flatMap((page) => page.replacements) ?? [];
 
   return (
@@ -46,7 +47,7 @@ export const ReplacementList: React.FC<Props> = () => {
             <ReplacementModal />
           </div>
         </CardHeader>
-        <div className='min-h-[50px] relative'>
+        <div className='min-h-[384px] relative'>
           {isLoading ? (
             <LoadingBounce />
           ) : (
@@ -61,7 +62,13 @@ export const ReplacementList: React.FC<Props> = () => {
             </CardContent>
           )}
         </div>
-        {/* <ShowMore showMore={showMore} loading={loading} loadItems={loadReplacemens} /> */}
+        {hasNextPage && (
+          <ShowMore
+            showMore={hasNextPage}
+            onClick={() => fetchNextPage()}
+            loading={isFetchingNextPage}
+          />
+        )}
       </Card>
     </>
   );
