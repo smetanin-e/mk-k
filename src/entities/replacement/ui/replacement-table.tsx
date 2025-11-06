@@ -20,8 +20,8 @@ interface Props {
 export const ReplacementTable: React.FC<Props> = ({ items }) => {
   console.log(items);
   //получаем модель картриджа для отображения рядом с номером
-  const { data } = useGetCartridges();
-  const cartridges = data ? data : [];
+  const { cartridges } = useGetCartridges();
+
   const currentModel = (number: string) => {
     return cartridges.find((cartrige) => cartrige.label === number)?.model?.model;
   };

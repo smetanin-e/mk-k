@@ -41,12 +41,9 @@ export const ReplacementForm: React.FC<Props> = ({ onClose }) => {
     }
   };
 
-  //TODO СДЕЛАТЬ ФИЛЬТРАЦИЮ НА СТОРОНЕ СЕРВЕРА
-  const { data } = useGetCartridges();
-  const cartridges = data ? data : [];
+  const { cartridges } = useGetCartridges([CartridgeStatus.AVAILABLE, CartridgeStatus.WORKING]);
   const avaibleCartridges = cartridges.filter((c) => c.status === CartridgeStatus.AVAILABLE);
   const workingCartridges = cartridges.filter((c) => c.status === CartridgeStatus.WORKING);
-
   return (
     <FormProvider {...form}>
       <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>

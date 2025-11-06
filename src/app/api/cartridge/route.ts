@@ -1,4 +1,5 @@
 import { cartridgeRepository } from '@/entities/cartridge/repository/cartridge-repository';
+import { CartridgeStatus } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -12,7 +13,11 @@ export async function GET(req: NextRequest) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
   try {
-    const cartridges = await cartridgeRepository.getCartridges();
+    const { searchParams } = new URL(req.url);
+    const cartridgeStatuses = searchParams.getAll('status') as CartridgeStatus[];
+    const statuses = cartridgeStatuses ? cartridgeStatuses : null;
+
+    const cartridges = await cartridgeRepository.getFilterByStatuses(statuses);
     return NextResponse.json(cartridges);
   } catch (error) {
     console.error('[API_CARTRIDGE_GET]', error);

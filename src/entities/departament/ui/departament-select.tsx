@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const DepartamentSelect: React.FC<Props> = () => {
-  const { data } = useGetDepartaments();
-  const departaments = data ? data : [];
+  const { departaments } = useGetDepartaments();
+
   return (
     <>
       <FormCustomSelect<Departament>

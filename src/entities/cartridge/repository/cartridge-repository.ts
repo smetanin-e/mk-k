@@ -35,6 +35,14 @@ export const cartridgeRepository = {
     });
   },
 
+  async getFilterByStatuses(statuses: CartridgeStatus[] | null) {
+    return prisma.cartridge.findMany({
+      where: statuses && statuses.length > 0 ? { status: { in: statuses } } : {},
+      include: { model: true },
+      orderBy: { numericLabel: 'desc' },
+    });
+  },
+
   async create(formData: RegisterCartridgeFormType) {
     return prisma.cartridge.create({
       data: {

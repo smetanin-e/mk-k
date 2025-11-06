@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const Stats: React.FC<Props> = () => {
-  const { data, isLoading } = useGetCartridges();
-  const cartridges = data ? data : [];
+  const { cartridges, isLoading } = useGetCartridges();
+
   const statuses = Object.keys(CARTRIDGE_STATUS_CONFIG) as CartridgeStatus[];
 
   return (

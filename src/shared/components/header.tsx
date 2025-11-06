@@ -34,7 +34,7 @@ export const Header: React.FC<Props> = ({ title, description, user }) => {
             Замена
           </Button>
         </Link>
-        <Link href='/service-batch'>
+        <Link href='/sending-batch'>
           <Button variant='outline' className='flex items-center gap-2'>
             <Package className='h-4 w-4' />
             Отправка в сервис

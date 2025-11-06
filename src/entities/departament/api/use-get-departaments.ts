@@ -3,7 +3,7 @@ import { Departament } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetDepartaments = () => {
-  return useQuery<Departament[]>({
+  const query = useQuery<Departament[]>({
     queryKey: ['departaments'],
     queryFn: async () => {
       return (
@@ -14,6 +14,10 @@ export const useGetDepartaments = () => {
         })
       ).data;
     },
-    initialData: [],
   });
+
+  return {
+    ...query,
+    departaments: query.data ?? [],
+  };
 };

@@ -15,8 +15,7 @@ interface Props {
 }
 
 export const CartridgeList: React.FC<Props> = () => {
-  const { data, isLoading } = useGetCartridges();
-  const cartridges = data || [];
+  const { cartridges, isLoading } = useGetCartridges();
 
   const [searchValue, setSearchValue] = React.useState('');
   const [statusFilter, setStatusFilter] = React.useState<CartridgeStatus | 'all'>('all');
@@ -51,7 +50,7 @@ export const CartridgeList: React.FC<Props> = () => {
             <>
               {filteredCartridges.length === 0 ? (
                 <div className='h-[625px] text-center py-8 text-muted-foreground'>
-                  {data?.length === 0 ? 'Список картриджей пуст' : 'Нет такого картриджа'}
+                  {cartridges?.length === 0 ? 'Список картриджей пуст' : 'Нет такого картриджа'}
                 </div>
               ) : (
                 <CartridgesTable count={filteredCartridges.length} items={filteredCartridges} />

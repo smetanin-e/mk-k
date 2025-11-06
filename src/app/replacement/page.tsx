@@ -1,5 +1,5 @@
 import { getUserSession } from '@/features/auth/actions/get-user-session';
-import { Header } from '@/shared/components/header';
+import { Header } from '@/shared/components';
 import { Stats } from '@/widgets/cartridges/ui';
 import { ReplacementList } from '@/widgets/replacement/ui';
 import { redirect } from 'next/navigation';
