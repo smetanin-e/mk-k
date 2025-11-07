@@ -12,8 +12,7 @@ export const ResponsibleForm: React.FC = () => {
   const { setValue, watch } = useFormContext();
   const currentResponsible = watch('responsible');
   const { user: currentUser } = useUserSession();
-  const { data } = useGetUsers();
-  const agents = data ? data : [];
+  const { agents } = useGetUsers();
 
   React.useEffect(() => {
     if (!currentUser || !agents?.length) return;

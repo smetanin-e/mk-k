@@ -1,13 +1,9 @@
 'use client';
 import React from 'react';
-import { Card, CardContent, CardFooter } from '@/shared/components/ui';
+import { Card, CardContent } from '@/shared/components/ui';
 import { CartridgeStatus } from '@prisma/client';
 import { useGetCartridges } from '@/entities/cartridge/api/use-get-cartridges';
-import {
-  CartridgesServiceList,
-  CartridgesServiceHeader,
-  CartridgeServiceDetails,
-} from '@/entities/cartridge/ui';
+import { CartridgesServiceList, CartridgesServiceHeader } from '@/entities/cartridge/ui';
 
 import { LoadingBounce } from '@/shared/components';
 
@@ -28,7 +24,7 @@ export const CartridgeServicePanel: React.FC<Props> = () => {
 
   return (
     <div className='lg:col-span-2'>
-      <Card className='min-h-[431px] max-h-[620px] flex flex-col relative'>
+      <Card className='min-h-[515px] max-h-[620px] flex flex-col relative'>
         {isLoading ? (
           <LoadingBounce />
         ) : (
@@ -52,9 +48,6 @@ export const CartridgeServicePanel: React.FC<Props> = () => {
                 />
               )}
             </CardContent>
-            <CardFooter>
-              <CartridgeServiceDetails cartridges={cartridges} />
-            </CardFooter>
           </>
         )}
       </Card>

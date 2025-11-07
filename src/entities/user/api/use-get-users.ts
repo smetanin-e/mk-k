@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Agent } from '../model/types';
 
 export const useGetUsers = () => {
-  return useQuery<Agent[]>({
+  const query = useQuery<Agent[]>({
     queryKey: ['users'],
     queryFn: async () => {
       return (
@@ -15,4 +15,9 @@ export const useGetUsers = () => {
       ).data;
     },
   });
+
+  return {
+    ...query,
+    agents: query.data ?? [],
+  };
 };

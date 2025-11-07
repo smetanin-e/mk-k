@@ -26,7 +26,7 @@ export const fetchReplacements = async ({
   });
 
   if (!data) {
-    throw new Error('Ошибка при загрузке пиров');
+    throw new Error('Ошибка при загрузке списка замен');
   }
 
   const hasMore = data.length === take;

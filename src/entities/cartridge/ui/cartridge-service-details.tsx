@@ -14,10 +14,11 @@ export const CartridgeServiceDetails: React.FC<Props> = ({ cartridges }) => {
   const previewModels = cartridges.filter((c) => selectedCartridges.includes(c.id));
   return (
     <div>
-      <h6>{`Выбранные картриджи:  ${
-        selectedCartridges.length > 0 ? selectedCartridges.length + ` шт.` : ''
-      }`}</h6>
-
+      <h6>
+        {' '}
+        Выбрано картриджей:{' '}
+        <strong>{selectedCartridges.length > 0 ? selectedCartridges.length + ` шт.` : ''}</strong>
+      </h6>
       <div className='flex flex-wrap gap-2'>
         {previewModels.length > 0 ? (
           previewModels.map((c) => {

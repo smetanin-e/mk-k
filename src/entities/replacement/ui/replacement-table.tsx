@@ -18,7 +18,6 @@ interface Props {
 }
 
 export const ReplacementTable: React.FC<Props> = ({ items }) => {
-  console.log(items);
   //получаем модель картриджа для отображения рядом с номером
   const { cartridges } = useGetCartridges();
 

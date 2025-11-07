@@ -63,6 +63,13 @@ export const cartridgeRepository = {
     });
   },
 
+  async updateStatusByIds(ids: number[], status: CartridgeStatus) {
+    return prisma.cartridge.updateMany({
+      where: { id: { in: ids } },
+      data: { status },
+    });
+  },
+
   async deleteCartridge(id: number) {
     return prisma.cartridge.delete({
       where: { id },
