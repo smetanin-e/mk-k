@@ -21,6 +21,7 @@ import { LoadingBounce, ShowMore } from '@/shared/components';
 import { BatchStatus } from '@prisma/client';
 import { useGetBatches } from '@/entities/batch/api/use-get-batches';
 import { PrintBatch, ShowBatch } from '@/entities/batch/ui';
+import { CancelBatch } from '@/features/batch/ui';
 
 interface Props {
   className?: string;
@@ -102,9 +103,9 @@ export const Batches: React.FC<Props> = () => {
                                 >
                                   <Printer className='h-4 w-4' />
                                 </Button>
-                                {/* {batch.status === BatchStatus.IN_PROGRESS && (
-                                  <DeleteBatch cartridges={batch.cartridges} id={batch.id} />
-                                )} */}
+                                {batch.status === BatchStatus.IN_PROGRESS && (
+                                  <CancelBatch batchId={batch.id} />
+                                )}
                               </div>
                             </TableCell>
                           </TableRow>

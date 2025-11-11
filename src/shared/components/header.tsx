@@ -40,7 +40,7 @@ export const Header: React.FC<Props> = ({ title, description, user }) => {
             Отправка в сервис
           </Button>
         </Link>
-        <Link href='/service-return'>
+        <Link href='/returning-batch'>
           <Button variant='outline' className='flex items-center gap-2'>
             <Download className='h-4 w-4' />
             Прием из сервиса

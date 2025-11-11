@@ -49,4 +49,17 @@ export const batchRepository = {
       take,
     });
   },
+
+  async findById(batchId: string) {
+    return prisma.serviceBatch.findFirst({
+      where: { id: batchId },
+      include: {
+        cartridgesInBatch: true,
+      },
+    });
+  },
+
+  async deleteBatch(batchId: string) {
+    return prisma.serviceBatch.delete({ where: { id: batchId } });
+  },
 };
