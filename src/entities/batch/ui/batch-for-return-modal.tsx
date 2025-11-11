@@ -30,7 +30,7 @@ interface Props {
   batch: BatchDTO;
 }
 
-export const ShowBatchForReturn: React.FC<Props> = ({
+export const BatchForReturnModal: React.FC<Props> = ({
   date,
   responsible,
   status,

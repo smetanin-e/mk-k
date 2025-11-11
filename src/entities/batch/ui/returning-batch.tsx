@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { TableCell, TableRow } from '@/shared/components/ui';
-import { ShowBatchStatusBadge } from './show-batch-status';
+import { getBatchStatusBadge } from './get-batch-status-badge';
 import { BatchStatus } from '@prisma/client';
 import { BatchDTO } from '../model/types';
-import { ShowBatchForReturn } from './show-batch-for-return';
+import { BatchForReturnModal } from './batch-for-return-modal';
 
 interface Props {
   className?: string;
@@ -23,9 +23,7 @@ export const ReturningBatch: React.FC<Props> = ({ batch }) => {
   return (
     <TableRow key={batch.id}>
       <TableCell>{batch.date}</TableCell>
-      <TableCell>
-        <ShowBatchStatusBadge status={batch.status} />
-      </TableCell>
+      <TableCell>{getBatchStatusBadge(batch.status)}</TableCell>
       <TableCell>
         <div className='flex flex-col text-sm'>
           <span>Всего: {batch.cartridges.length}</span>
@@ -44,10 +42,10 @@ export const ReturningBatch: React.FC<Props> = ({ batch }) => {
       <TableCell>{batch.responsible}</TableCell>
       <TableCell className='text-right'>
         <div className='flex gap-2 justify-end'>
-          <ShowBatchForReturn
+          <BatchForReturnModal
             date={batch.date}
             responsible={batch.responsible}
-            status={<ShowBatchStatusBadge status={batch.status} />}
+            status={getBatchStatusBadge(batch.status)}
             cartridges={batch.cartridges}
             batch={batch}
           />

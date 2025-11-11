@@ -20,7 +20,7 @@ import { LoadingBounce, ShowMore } from '@/shared/components';
 
 import { BatchStatus } from '@prisma/client';
 import { useGetBatches } from '@/entities/batch/api/use-get-batches';
-import { PrintBatch, ShowBatch } from '@/entities/batch/ui';
+import { PrintBatch, ShowCreatedBatch } from '@/entities/batch/ui';
 import { CancelBatch } from '@/features/batch/ui';
 
 interface Props {
@@ -87,7 +87,7 @@ export const Batches: React.FC<Props> = () => {
                             <TableCell>{batch.responsible}</TableCell>
                             <TableCell className='text-right'>
                               <div className='flex gap-2 justify-end'>
-                                <ShowBatch
+                                <ShowCreatedBatch
                                   cartridges={batch.cartridges}
                                   date={batch.date}
                                   responsible={batch.responsible}

@@ -14,11 +14,8 @@ export const fetchBatches = async (
   const params = new URLSearchParams();
   params.set('take', take.toString());
   params.set('skip', skip.toString());
-  if (statuseParams) {
-    params.set('statuses', statuseParams);
-  }
 
-  const { data } = await axiosInstance.get(`/batch?${params.toString()}`, {
+  const { data } = await axiosInstance.get(`/batch?${statuseParams ? statuseParams : ''}`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_READ_KEY}`,
     },

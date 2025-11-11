@@ -15,7 +15,7 @@ interface Props {
   setCheckedReserve: (checkedReserve: boolean) => void;
 }
 
-export const CartridgesServiceHeader: React.FC<Props> = ({
+export const SendingCartridgesHeader: React.FC<Props> = ({
   searchValue,
   setSearchValue,
   availableForService,

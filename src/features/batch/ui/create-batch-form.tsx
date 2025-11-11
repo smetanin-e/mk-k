@@ -10,7 +10,7 @@ import { ResponsibleForm } from '@/entities/user/ui';
 import { FormDate } from '@/shared/components/form';
 import { FormTextarea } from '@/shared/components/form/form-textarea';
 import { useSelectetCartridgeStore } from '@/entities/cartridge/model/store';
-import { CartridgeServiceDetails } from '@/entities/cartridge/ui';
+import { SendingCartridgeDetails } from '@/entities/cartridge/ui';
 import { useGetCartridges } from '@/entities/cartridge/api/use-get-cartridges';
 import { useBatchMutations } from '../model/hooks/use-batch-mutation';
 
@@ -69,7 +69,7 @@ export const CreateBatchForm: React.FC<Props> = () => {
 
               <div className='pt-4 border-t'>
                 <div className='text-sm text-muted-foreground mb-4 min-h-25'>
-                  <CartridgeServiceDetails cartridges={cartridges} />
+                  <SendingCartridgeDetails cartridges={cartridges} />
                 </div>
                 <Button
                   type='submit'

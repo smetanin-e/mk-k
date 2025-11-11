@@ -1,4 +1,4 @@
-export { ShowBatch } from './show-batch';
+export { ShowCreatedBatch } from './show-created-batch';
 export { PrintBatch } from './print-batch';
-export { ShowBatchStatusBadge } from './show-batch-status';
-export { ShowBatchForReturn } from './show-batch-for-return';
+export { getBatchStatusBadge } from './get-batch-status-badge';
+export { BatchForReturnModal } from './batch-for-return-modal';

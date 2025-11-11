@@ -24,7 +24,7 @@ interface Props {
   notes: string;
 }
 
-export const ShowBatch: React.FC<Props> = ({ cartridges, date, responsible, notes }) => {
+export const ShowCreatedBatch: React.FC<Props> = ({ cartridges, date, responsible, notes }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>

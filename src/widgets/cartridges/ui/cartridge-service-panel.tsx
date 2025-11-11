@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent } from '@/shared/components/ui';
 import { CartridgeStatus } from '@prisma/client';
 import { useGetCartridges } from '@/entities/cartridge/api/use-get-cartridges';
-import { CartridgesServiceList, CartridgesServiceHeader } from '@/entities/cartridge/ui';
+import { SendingCartridgesList, SendingCartridgesHeader } from '@/entities/cartridge/ui';
 
 import { LoadingBounce } from '@/shared/components';
 
@@ -29,7 +29,7 @@ export const CartridgeServicePanel: React.FC<Props> = () => {
           <LoadingBounce />
         ) : (
           <>
-            <CartridgesServiceHeader
+            <SendingCartridgesHeader
               searchValue={searchValue}
               setSearchValue={setSearchValue}
               availableForService={availableForService}
@@ -42,7 +42,7 @@ export const CartridgeServicePanel: React.FC<Props> = () => {
                   Нет картриджей доступных для отправки в сервис
                 </div>
               ) : (
-                <CartridgesServiceList
+                <SendingCartridgesList
                   availableForService={availableForService}
                   searchValue={searchValue}
                 />

@@ -18,7 +18,7 @@ interface Props {
   availableForService: CartridgeDTO[];
 }
 
-export const CartridgesServiceList: React.FC<Props> = ({ availableForService, searchValue }) => {
+export const SendingCartridgesList: React.FC<Props> = ({ availableForService, searchValue }) => {
   const { selectedCartridges, setSelectedCartridges } = useSelectetCartridgeStore();
 
   const filteredCartriges = availableForService.filter((cartridge) =>

@@ -2,11 +2,7 @@ import { BATCH_STATUS } from '@/shared/constants/cartridge-status';
 import { BatchStatus } from '@prisma/client';
 import { Badge } from '@/shared/components/ui';
 
-interface Props {
-  status: BatchStatus;
-}
-
-export const ShowBatchStatusBadge: React.FC<Props> = ({ status }) => {
+export const getBatchStatusBadge = (status: BatchStatus) => {
   const config = BATCH_STATUS[status];
   const Icon = config.icon;
   return (

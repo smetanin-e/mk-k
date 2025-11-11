@@ -8,7 +8,7 @@ interface Props {
   cartridges: CartridgeDTO[];
 }
 
-export const CartridgeServiceDetails: React.FC<Props> = ({ cartridges }) => {
+export const SendingCartridgeDetails: React.FC<Props> = ({ cartridges }) => {
   const selectedCartridges = useSelectetCartridgeStore((state) => state.selectedCartridges);
 
   const previewModels = cartridges.filter((c) => selectedCartridges.includes(c.id));
