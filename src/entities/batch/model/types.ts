@@ -1,8 +1,8 @@
-import { BatchCartridges } from '@/entities/cartridge/model/types';
-import { CreateBatchFormType } from '@/features/batch/model/schemas/create-batch-schema';
+import { BatchCartridge } from '@/entities/cartridge/model/types';
+import { BatchFormType } from '@/features/batch/model/schemas/batch-form-schema';
 import { BatchStatus } from '@prisma/client';
 
-export type BatchForService = CreateBatchFormType & { cartridges: number[] };
+export type BatchForService = BatchFormType & { cartridges: number[] };
 export type BatchDTO = {
   id: string;
   date: string;
@@ -10,5 +10,5 @@ export type BatchDTO = {
   notes: string;
   status: BatchStatus;
   partialReturnDate: string | null;
-  cartridges: BatchCartridges[];
+  cartridges: BatchCartridge[];
 };

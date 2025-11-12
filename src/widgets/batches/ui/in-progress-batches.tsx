@@ -27,7 +27,7 @@ interface Props {
   className?: string;
 }
 
-export const Batches: React.FC<Props> = () => {
+export const InProgressBatches: React.FC<Props> = () => {
   const { batches, hasNextPage, isLoading, fetchNextPage, isFetchingNextPage } = useGetBatches([
     BatchStatus.IN_PROGRESS,
   ]);
@@ -103,9 +103,8 @@ export const Batches: React.FC<Props> = () => {
                                 >
                                   <Printer className='h-4 w-4' />
                                 </Button>
-                                {batch.status === BatchStatus.IN_PROGRESS && (
-                                  <CancelBatch batchId={batch.id} />
-                                )}
+
+                                <CancelBatch batchId={batch.id} />
                               </div>
                             </TableCell>
                           </TableRow>

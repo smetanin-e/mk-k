@@ -1,0 +1,84 @@
+import React from 'react';
+
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/shared/components/ui';
+import { Eye } from 'lucide-react';
+import { BatchDTO } from '../../model/types';
+import { BatchCartridge } from '@/entities/cartridge/model/types';
+import { ShowBatchTable } from './show-batch-table';
+
+interface Props {
+  className?: string;
+  date: string;
+  responsible: string;
+  status: React.ReactNode;
+  cartridges: BatchCartridge[];
+  batch: BatchDTO;
+}
+
+export const ShowBatchModal: React.FC<Props> = ({
+  date,
+  responsible,
+  status,
+  cartridges,
+  batch,
+}) => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant='outline' size='sm'>
+          <Eye className='h-4 w-4' />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className='max-w-2xl sm:max-w-auto'>
+        <DialogHeader>
+          <DialogTitle>Партия от {date}</DialogTitle>
+        </DialogHeader>
+        <div className='space-y-4'>
+          <div className='grid grid-cols-1 gap-1 text-sm'>
+            <div>
+              <strong>Партию отправлял:</strong> {responsible}
+            </div>
+            <div className='flex gap-3'>
+              <strong>Статус:</strong> <p>{status}</p>
+            </div>
+
+            {batch.partialReturnDate && (
+              <div>
+                <strong>Дата частичного возврата:</strong> {batch.partialReturnDate}
+              </div>
+            )}
+          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Номер</TableHead>
+                <TableHead>Модель</TableHead>
+                <TableHead>Статус</TableHead>
+                <TableHead>Дата возврата</TableHead>
+                <TableHead>Принял</TableHead>
+                <TableHead>Комментарий</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {cartridges.map((cartridge) => (
+                <ShowBatchTable key={cartridge.id} batch={batch} cartridge={cartridge} />
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};

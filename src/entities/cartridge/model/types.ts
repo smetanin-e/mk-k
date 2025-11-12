@@ -1,7 +1,7 @@
 import { Cartridge } from '@prisma/client';
 
 export type CartridgeDTO = Cartridge & { model: { model: string; id: number } };
-export type BatchCartridges = CartridgeDTO & {
+export type BatchCartridge = CartridgeDTO & {
   returned: boolean;
   returnDate: string | null;
   returnResponsible: string | null;

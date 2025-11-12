@@ -1,17 +1,18 @@
 import React from 'react';
 
 import { TableCell, TableRow } from '@/shared/components/ui';
-import { getBatchStatusBadge } from './get-batch-status-badge';
+import { getBatchStatusBadge } from '../get-batch-status-badge';
 import { BatchStatus } from '@prisma/client';
-import { BatchDTO } from '../model/types';
-import { BatchForReturnModal } from './batch-for-return-modal';
+import { BatchDTO } from '../../model/types';
+import { ShowBatchModal } from './show-batch-modal';
+import { ReturnBatchModal } from '@/features/batch/ui';
 
 interface Props {
   className?: string;
   batch: BatchDTO;
 }
 
-export const ReturningBatch: React.FC<Props> = ({ batch }) => {
+export const ReturnBatchItem: React.FC<Props> = ({ batch }) => {
   const getAvailableCartridges = (batch: BatchDTO) => {
     return batch.cartridges.filter((c) => !c.returned);
   };
@@ -21,7 +22,7 @@ export const ReturningBatch: React.FC<Props> = ({ batch }) => {
   };
 
   return (
-    <TableRow key={batch.id}>
+    <TableRow>
       <TableCell>{batch.date}</TableCell>
       <TableCell>{getBatchStatusBadge(batch.status)}</TableCell>
       <TableCell>
@@ -42,20 +43,20 @@ export const ReturningBatch: React.FC<Props> = ({ batch }) => {
       <TableCell>{batch.responsible}</TableCell>
       <TableCell className='text-right'>
         <div className='flex gap-2 justify-end'>
-          <BatchForReturnModal
+          <ShowBatchModal
             date={batch.date}
             responsible={batch.responsible}
             status={getBatchStatusBadge(batch.status)}
             cartridges={batch.cartridges}
             batch={batch}
           />
-          {/* <CartridgesReturn
-                            batchId={batch.id}
-                            date={batch.date}
-                            responsible={batch.responsible}
-                            status={getBatchStatusBadge(batch.status)}
-                            cartridges={batch.cartridges}
-                          /> */}
+          <ReturnBatchModal
+            batchId={batch.id}
+            date={batch.date}
+            responsible={batch.responsible}
+            status={getBatchStatusBadge(batch.status)}
+            cartridges={batch.cartridges}
+          />
         </div>
       </TableCell>
     </TableRow>

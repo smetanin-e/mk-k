@@ -5,7 +5,7 @@ import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/compo
 import { FormProvider, useForm } from 'react-hook-form';
 import { convertDate } from '@/shared/lib';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreateBatchFormType, createBatchSchema } from '../model/schemas/create-batch-schema';
+import { BatchFormType, batchFormSchema } from '../model/schemas/batch-form-schema';
 import { ResponsibleForm } from '@/entities/user/ui';
 import { FormDate } from '@/shared/components/form';
 import { FormTextarea } from '@/shared/components/form/form-textarea';
@@ -23,8 +23,8 @@ export const CreateBatchForm: React.FC<Props> = () => {
   const { cartridges } = useGetCartridges();
   const { selectedCartridges, setSelectedCartridges } = useSelectetCartridgeStore();
 
-  const form = useForm<CreateBatchFormType>({
-    resolver: zodResolver(createBatchSchema),
+  const form = useForm<BatchFormType>({
+    resolver: zodResolver(batchFormSchema),
     defaultValues: {
       date: new Date().toISOString().split('T')[0],
       notes: '',
@@ -32,7 +32,7 @@ export const CreateBatchForm: React.FC<Props> = () => {
     },
   });
 
-  const onSubmit = async (data: CreateBatchFormType) => {
+  const onSubmit = async (data: BatchFormType) => {
     try {
       data.date = convertDate(data.date);
       const payload = { ...data, cartridges: selectedCartridges };

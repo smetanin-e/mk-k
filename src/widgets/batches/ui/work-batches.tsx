@@ -14,13 +14,13 @@ import {
 import { BatchStatus } from '@prisma/client';
 import { useGetBatches } from '@/entities/batch/api/use-get-batches';
 import { LoadingBounce } from '@/shared/components';
-import { ReturningBatch } from '@/entities/batch/ui/returning-batch';
+import { ReturnBatchItem } from '@/entities/batch/ui/';
 
 interface Props {
   className?: string;
 }
 
-export const BatchesForReturn: React.FC<Props> = () => {
+export const WorkBatches: React.FC<Props> = () => {
   const { batches, isLoading } = useGetBatches([
     BatchStatus.IN_PROGRESS,
     BatchStatus.PARTIAL_RETURN,
@@ -51,7 +51,7 @@ export const BatchesForReturn: React.FC<Props> = () => {
                 </TableHeader>
                 <TableBody>
                   {batches.map((batch) => (
-                    <ReturningBatch key={batch.id} batch={batch} />
+                    <ReturnBatchItem key={batch.id} batch={batch} />
                   ))}
                 </TableBody>
               </Table>

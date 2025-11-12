@@ -8,12 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/components/ui';
-import { BatchCartridges } from '@/entities/cartridge/model/types';
+import { BatchCartridge } from '@/entities/cartridge/model/types';
 
 interface Props {
   responsible: string;
   date: string;
-  cartridges: BatchCartridges[];
+  cartridges: BatchCartridge[];
 }
 
 export const PrintBatch = forwardRef<HTMLDivElement, Props>(

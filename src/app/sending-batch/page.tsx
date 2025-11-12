@@ -1,7 +1,7 @@
 import { getUserSession } from '@/features/auth/actions/get-user-session';
 import { CreateBatchForm } from '@/features/batch/ui/';
 import { Header } from '@/shared/components';
-import { Batches } from '@/widgets/batches/ui/batches';
+import { InProgressBatches } from '@/widgets/batches/ui/in-progress-batches';
 import { CartridgeServicePanel } from '@/widgets/cartridges/ui';
 import { redirect } from 'next/navigation';
 
@@ -20,7 +20,7 @@ export default async function SendingBatchPage() {
         <CartridgeServicePanel />
         <CreateBatchForm />
       </div>
-      <Batches />
+      <InProgressBatches />
     </div>
   );
 }

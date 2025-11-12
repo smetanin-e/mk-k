@@ -14,11 +14,11 @@ import {
   TableRow,
 } from '@/shared/components/ui';
 import { Eye } from 'lucide-react';
-import { BatchCartridges } from '@/entities/cartridge/model/types';
+import { BatchCartridge } from '@/entities/cartridge/model/types';
 
 interface Props {
   className?: string;
-  cartridges: BatchCartridges[];
+  cartridges: BatchCartridge[];
   date: string;
   responsible: string;
   notes: string;
