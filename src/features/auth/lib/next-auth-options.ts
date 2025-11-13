@@ -48,7 +48,7 @@ export const authOptions: AuthOptions = {
           id: findUser.id,
           login: findUser.login,
           role: findUser.role,
-          surmane: findUser.surname,
+          surname: findUser.surname,
           firstName: findUser.firstName,
           lastName: findUser.lastName,
           status: findUser.status,
