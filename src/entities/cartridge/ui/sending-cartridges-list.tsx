@@ -25,37 +25,39 @@ export const SendingCartridgesList: React.FC<Props> = ({ availableForService, se
     searchValue ? cartridge.label.toLowerCase().includes(searchValue.toLowerCase()) : true,
   );
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className='w-12'></TableHead>
-          <TableHead>Номер</TableHead>
-          <TableHead>Модель</TableHead>
-          <TableHead>Статус</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {filteredCartriges.map((cartridge) => (
-          <TableRow key={cartridge.id}>
-            <TableCell>
-              <Checkbox
-                checked={selectedCartridges.includes(cartridge.id)}
-                onCheckedChange={(checked) =>
-                  handleCartridgeSelect(
-                    selectedCartridges,
-                    cartridge.id,
-                    checked as boolean,
-                    setSelectedCartridges,
-                  )
-                }
-              />
-            </TableCell>
-            <TableCell className='font-medium'>{cartridge.label}</TableCell>
-            <TableCell>{cartridge.model?.model}</TableCell>
-            <TableCell>{getStatusBadge(cartridge.status)}</TableCell>
+    <div className='h-[369px] '>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className='w-12'></TableHead>
+            <TableHead>Номер</TableHead>
+            <TableHead>Модель</TableHead>
+            <TableHead>Статус</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {filteredCartriges.map((cartridge) => (
+            <TableRow key={cartridge.id}>
+              <TableCell>
+                <Checkbox
+                  checked={selectedCartridges.includes(cartridge.id)}
+                  onCheckedChange={(checked) =>
+                    handleCartridgeSelect(
+                      selectedCartridges,
+                      cartridge.id,
+                      checked as boolean,
+                      setSelectedCartridges,
+                    )
+                  }
+                />
+              </TableCell>
+              <TableCell className='font-medium'>{cartridge.label}</TableCell>
+              <TableCell>{cartridge.model?.model}</TableCell>
+              <TableCell>{getStatusBadge(cartridge.status)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };

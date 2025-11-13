@@ -29,12 +29,15 @@ export const ReturnBatchModal: React.FC<Props> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const [selectedCartridges, setSelectedCartridges] = React.useState<number[]>([]);
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size='sm'>Принять</Button>
       </DialogTrigger>
-      <DialogContent className='max-w-6xl sm:max-w-auto'>
+      <DialogContent className='max-w-6xl sm:max-w-auto' aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Прием партии от {date}</DialogTitle>
         </DialogHeader>
@@ -67,6 +70,7 @@ export const ReturnBatchModal: React.FC<Props> = ({
             batchId={batchId}
             selectedCartridges={selectedCartridges}
             setSelectedCartridges={setSelectedCartridges}
+            onClose={onClose}
           />
         </div>
       </DialogContent>

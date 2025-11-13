@@ -15,6 +15,7 @@ import {
 } from '@/shared/components/ui';
 import { Eye } from 'lucide-react';
 import { BatchCartridge } from '@/entities/cartridge/model/types';
+import { Notes } from '@/shared/components';
 
 interface Props {
   className?: string;
@@ -62,13 +63,7 @@ export const ShowCreatedBatch: React.FC<Props> = ({ cartridges, date, responsibl
             </TableBody>
           </Table>
         </div>
-        {notes && (
-          <div>
-            <div className='text-sm text-muted-foreground'>Комментарий к партии:</div>
-
-            <div className='text-sm text-secondary-foreground'>{` ${notes}`}</div>
-          </div>
-        )}
+        {notes && <Notes notes={notes} />}
       </DialogContent>
     </Dialog>
   );

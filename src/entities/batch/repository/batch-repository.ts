@@ -59,6 +59,13 @@ export const batchRepository = {
     });
   },
 
+  async update(batchId: string, status: BatchStatus, date: string) {
+    return prisma.serviceBatch.update({
+      where: { id: batchId },
+      data: { status, partialReturnDate: date },
+    });
+  },
+
   async deleteBatch(batchId: string) {
     return prisma.serviceBatch.delete({ where: { id: batchId } });
   },

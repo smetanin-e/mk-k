@@ -12,3 +12,11 @@ export type BatchDTO = {
   partialReturnDate: string | null;
   cartridges: BatchCartridge[];
 };
+
+export type ReturnCartriges = {
+  batchId: string;
+  date: string;
+  responsible: string;
+  notes: string | null;
+  cartridges: number[];
+};

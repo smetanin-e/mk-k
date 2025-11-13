@@ -13,11 +13,12 @@ export const fetchReplacements = async ({
   replacements: ReplacementDTO[];
   nextPage: number | undefined;
 }> => {
-  const take = 10;
+  const take = 3;
   const skip = pageParam * take;
   const params = new URLSearchParams();
   params.set('take', take.toString());
   params.set('skip', skip.toString());
+  console.log(params);
   if (search.trim()) params.set('search', search.trim());
   const { data } = await axiosInstance.get<ReplacementDTO[]>(`/replacement?${params.toString()}`, {
     headers: {

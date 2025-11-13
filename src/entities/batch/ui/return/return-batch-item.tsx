@@ -11,7 +11,7 @@ interface Props {
   className?: string;
   batch: BatchDTO;
 }
-
+//TODO переместить сюда batch от родителя
 export const ReturnBatchItem: React.FC<Props> = ({ batch }) => {
   const getAvailableCartridges = (batch: BatchDTO) => {
     return batch.cartridges.filter((c) => !c.returned);
@@ -48,7 +48,7 @@ export const ReturnBatchItem: React.FC<Props> = ({ batch }) => {
             responsible={batch.responsible}
             status={getBatchStatusBadge(batch.status)}
             cartridges={batch.cartridges}
-            batch={batch}
+            batch={batch} //TODO пересмотреть
           />
           <ReturnBatchModal
             batchId={batch.id}

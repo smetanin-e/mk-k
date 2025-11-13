@@ -1,21 +1,30 @@
 import { BatchDTO } from '@/entities/batch/model/types';
 import { axiosInstance } from '@/shared/service/instance';
 
-export const fetchBatches = async (
-  statuseParams?: string,
+interface FetchBatchesParams {
+  pageParam?: number; // номер страницы для useInfiniteQuery
+  statusParams?: string;
+  take?: number;
+}
+
+export const fetchBatches = async ({
   pageParam = 0,
-): Promise<{
+  statusParams = '',
+  take,
+}: FetchBatchesParams): Promise<{
   batches: BatchDTO[];
   nextPage: number | undefined;
 }> => {
-  const take = 3;
-  const skip = pageParam * take;
-
   const params = new URLSearchParams();
-  params.set('take', take.toString());
-  params.set('skip', skip.toString());
+  if (take) {
+    const skip = pageParam * take;
+    params.set('take', take.toString());
+    params.set('skip', skip.toString());
+  }
 
-  const { data } = await axiosInstance.get(`/batch?${statuseParams ? statuseParams : ''}`, {
+  console.log(params);
+
+  const { data } = await axiosInstance.get(`/batch?${params.toString()}&${statusParams}`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_READ_KEY}`,
     },

@@ -49,6 +49,6 @@ export const CARTRIDGE_STATUS_CONFIG = {
 
 export const BATCH_STATUS = {
   IN_PROGRESS: { label: 'В стадии заправки', color: 'bg-purple-500', icon: Clock },
-  COMPLITED: { label: 'Выполнено', color: 'bg-green-500', icon: CheckCircle },
+  COMPLETED: { label: 'Выполнено', color: 'bg-green-500', icon: CheckCircle },
   PARTIAL_RETURN: { label: 'Частичный возврат', color: 'bg-orange-500', icon: AlertCircle },
 } as const;

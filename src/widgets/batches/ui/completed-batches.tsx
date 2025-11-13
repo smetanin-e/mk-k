@@ -15,16 +15,17 @@ import {
 import { BatchStatus } from '@prisma/client';
 import { useGetBatches } from '@/entities/batch/api/use-get-batches';
 import { LoadingBounce, ShowMore } from '@/shared/components';
-import { getBatchStatusBadge } from '@/entities/batch/ui';
+import { getBatchStatusBadge, ShowBatchCompleted } from '@/entities/batch/ui';
 
 interface Props {
   className?: string;
 }
 
 export const CompletedBatches: React.FC<Props> = () => {
-  const { batches, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetBatches([
-    BatchStatus.COMPLITED,
-  ]);
+  const { batches, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetBatches(
+    [BatchStatus.COMPLETED],
+    3,
+  );
   return (
     <Card className='min-h-[184px] relative pb-12'>
       {isLoading ? (
@@ -56,13 +57,13 @@ export const CompletedBatches: React.FC<Props> = () => {
                       <TableCell>{batch.cartridges.length}</TableCell>
                       <TableCell>{batch.responsible}</TableCell>
                       <TableCell className='text-right'>
-                        {/* <ShowBatchComplited
+                        <ShowBatchCompleted
                           date={batch.date}
                           responsible={batch.responsible}
                           status={getBatchStatusBadge(batch.status)}
                           cartridges={batch.cartridges}
                           batch={batch}
-                        /> */}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}

@@ -4,6 +4,7 @@ import {
   Button,
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -17,6 +18,7 @@ import { Eye } from 'lucide-react';
 import { BatchDTO } from '../../model/types';
 import { BatchCartridge } from '@/entities/cartridge/model/types';
 import { ShowBatchTable } from './show-batch-table';
+import { Notes } from '@/shared/components';
 
 interface Props {
   className?: string;
@@ -41,7 +43,7 @@ export const ShowBatchModal: React.FC<Props> = ({
           <Eye className='h-4 w-4' />
         </Button>
       </DialogTrigger>
-      <DialogContent className='max-w-2xl sm:max-w-auto'>
+      <DialogContent className='max-w-2xl sm:max-w-auto' aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Партия от {date}</DialogTitle>
         </DialogHeader>
@@ -78,6 +80,11 @@ export const ShowBatchModal: React.FC<Props> = ({
             </TableBody>
           </Table>
         </div>
+        {batch.notes && (
+          <DialogFooter className='sm:justify-start'>
+            <Notes notes={batch.notes} />
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

@@ -7,19 +7,23 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { batchFormSchema, BatchFormType } from '../model/schemas/batch-form-schema';
 import { convertDate } from '@/shared/lib';
 import { Button } from '@/shared/components/ui';
+import { useBatchMutations } from '../model/hooks/use-batch-mutation';
 
 interface Props {
   className?: string;
   selectedCartridges: number[];
   setSelectedCartridges: (ids: number[]) => void;
   batchId: string;
+  onClose: VoidFunction;
 }
 
 export const ReturnBatchForm: React.FC<Props> = ({
   batchId,
   selectedCartridges,
   setSelectedCartridges,
+  onClose,
 }) => {
+  const { update } = useBatchMutations();
   const form = useForm<BatchFormType>({
     resolver: zodResolver(batchFormSchema),
     defaultValues: {
@@ -38,11 +42,13 @@ export const ReturnBatchForm: React.FC<Props> = ({
         cartridges: selectedCartridges,
       };
 
-      console.log(payload);
+      update.mutateAsync(payload);
       setSelectedCartridges([]);
       form.reset();
     } catch (error) {
       console.error('Error [Return_Batch_Form]', error);
+    } finally {
+      onClose();
     }
   };
   return (
@@ -57,11 +63,19 @@ export const ReturnBatchForm: React.FC<Props> = ({
         </div>
 
         <div className='flex items-center justify-end space-x-6'>
-          <Button type='submit' disabled={selectedCartridges.length === 0}>
+          <Button
+            type='submit'
+            disabled={selectedCartridges.length === 0 || form.formState.isSubmitting}
+          >
             Принять
             {selectedCartridges.length !== 0 ? ` (${selectedCartridges.length} шт.)` : ''}
           </Button>
-          <Button type='button' variant='outline'>
+          <Button
+            disabled={form.formState.isSubmitting}
+            type='button'
+            variant='outline'
+            onClick={onClose}
+          >
             Отмена
           </Button>
         </div>

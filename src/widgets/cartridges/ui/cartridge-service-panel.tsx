@@ -24,7 +24,7 @@ export const CartridgeServicePanel: React.FC<Props> = () => {
 
   return (
     <div className='lg:col-span-2'>
-      <Card className='min-h-[515px] max-h-[620px] flex flex-col relative'>
+      <Card className='min-h-[515px] flex flex-col relative'>
         {isLoading ? (
           <LoadingBounce />
         ) : (

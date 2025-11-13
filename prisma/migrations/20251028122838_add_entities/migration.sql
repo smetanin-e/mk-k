@@ -8,7 +8,7 @@
 CREATE TYPE "CartridgeStatus" AS ENUM ('SERVICE', 'WORKING', 'RESERVE', 'AVAILABLE', 'REFILL');
 
 -- CreateEnum
-CREATE TYPE "BatchStatus" AS ENUM ('IN_PROGRESS', 'COMPLITED', 'PARTIAL_RETURN');
+CREATE TYPE "BatchStatus" AS ENUM ('IN_PROGRESS', 'COMPLETED', 'PARTIAL_RETURN');
 
 -- DropForeignKey
 ALTER TABLE "public"."Session" DROP CONSTRAINT "Session_userId_fkey";
