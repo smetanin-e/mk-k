@@ -13,7 +13,7 @@ export const fetchReplacements = async ({
   replacements: ReplacementDTO[];
   nextPage: number | undefined;
 }> => {
-  const take = 3;
+  const take = 10;
   const skip = pageParam * take;
   const params = new URLSearchParams();
   params.set('take', take.toString());
