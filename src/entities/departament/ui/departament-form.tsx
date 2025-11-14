@@ -26,7 +26,7 @@ export const DepartamentForm: React.FC<Props> = ({ onClose }) => {
     try {
       await create.mutateAsync(data);
     } catch (error) {
-      console.log('Error [DEPARTAMENT_FORM]', error);
+      console.error('Error [DEPARTAMENT_FORM]', error);
     } finally {
       onClose();
     }

@@ -37,7 +37,7 @@ export const CreatePrinterForm: React.FC<Props> = ({ onClose }) => {
 
       form.reset();
     } catch (error) {
-      console.log('Error [ADD_PRINTER_FORM]', error);
+      console.error('Error [ADD_PRINTER_FORM]', error);
     } finally {
       onClose();
     }
@@ -66,7 +66,7 @@ export const CreatePrinterForm: React.FC<Props> = ({ onClose }) => {
         {/* Превью */}
         <PreviewCreatePrinter />
 
-        <div className='flex justify-end gap-8'>
+        <div className='pt-4 grid grid-cols-2 gap-4'>
           <Button disabled={disabled || form.formState.isSubmitting} type='submit'>
             Добавить принтер
           </Button>

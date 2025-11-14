@@ -32,7 +32,7 @@ export const RegisterCartridgeForm: React.FC<Props> = ({ onClose }) => {
     try {
       await create.mutateAsync(data);
     } catch (error) {
-      console.log('Error [REGISTER_CARTRIDGE_FORM]', error);
+      console.error('Error [REGISTER_CARTRIDGE_FORM]', error);
     } finally {
       onClose();
     }
@@ -64,7 +64,7 @@ export const RegisterCartridgeForm: React.FC<Props> = ({ onClose }) => {
           <FormSelect required name='status' label='Состояние картриджа' data={CARTRIDGE_STATUS} />
         </div>
 
-        <div className='pt-4 flex justify-end gap-8'>
+        <div className='pt-4 grid grid-cols-2 gap-4'>
           <Button disabled={form.formState.isSubmitting} type='submit'>
             Сохранить
           </Button>

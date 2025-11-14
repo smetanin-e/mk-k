@@ -28,7 +28,6 @@ export const useUserMutations = () => {
     onSuccess: async (res) => {
       if (res.success) {
         queryClient.invalidateQueries({ queryKey: ['users'] });
-        toast.success('Статус изменен! ✅');
       } else {
         toast.error(res.message || 'Ошибка при изменении статуса ❌');
       }

@@ -22,7 +22,7 @@ export const RegisterModel: React.FC<Props> = () => {
 
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
-      <DialogContent className='space-y-4'>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle className='flex items-center gap-2'>
             <Package className='h-5 w-5' />

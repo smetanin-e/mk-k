@@ -62,7 +62,7 @@ export const ReturnBatchForm: React.FC<Props> = ({
           <FormTextarea name='notes' label='Примечания' placeholder='Комментарий возврата...' />
         </div>
 
-        <div className='flex items-center justify-end space-x-6'>
+        <div className='pt-4 grid grid-cols-2 gap-4'>
           <Button
             type='submit'
             disabled={selectedCartridges.length === 0 || form.formState.isSubmitting}

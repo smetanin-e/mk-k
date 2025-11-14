@@ -29,7 +29,7 @@ export const ChangePasswordForm: React.FC<Props> = ({ id, setOpen }) => {
       setOpen(false);
       toast.success('Пароль успешно изменен✅');
     } catch (error) {
-      console.log('Error [LOGIN_FORM]', error);
+      console.error('Error [LOGIN_FORM]', error);
       return toast.error(error instanceof Error ? error.message : 'Ошибка ❌');
     }
   };

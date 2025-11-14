@@ -31,11 +31,11 @@ export const ReplacementForm: React.FC<Props> = ({ onClose }) => {
   const onSubmit = async (data: ReplacementFormType) => {
     try {
       data.date = convertDate(data.date);
-      console.log(data);
+
       await create.mutateAsync(data);
       form.reset();
     } catch (error) {
-      console.log('Error [REPLACEMENT_FORM]', error);
+      console.error('Error [REPLACEMENT_FORM]', error);
     } finally {
       onClose();
     }
@@ -63,7 +63,7 @@ export const ReplacementForm: React.FC<Props> = ({ onClose }) => {
 
         <ResponsibleForm />
 
-        <Button disabled={form.formState.isSubmitting} type='submit'>
+        <Button disabled={form.formState.isSubmitting} type='submit' className='w-full mt-6'>
           {form.formState.isSubmitting ? 'Оформление...' : 'Подтвердить'}
         </Button>
       </form>

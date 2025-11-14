@@ -6,7 +6,7 @@ export const useGetBatches = (statuses?: BatchStatus[], take?: number) => {
   const statusesString = statuses?.length
     ? statuses.map((s) => `status=${encodeURIComponent(s)}`).join('&')
     : '';
-  console.log({ statusesString });
+
   const query = useInfiniteQuery({
     initialPageParam: 0,
     queryKey: ['batches', { statuses }],

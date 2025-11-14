@@ -36,13 +36,12 @@ export const CreateBatchForm: React.FC<Props> = () => {
     try {
       data.date = convertDate(data.date);
       const payload = { ...data, cartridges: selectedCartridges };
-      console.log(payload);
       await create.mutateAsync(payload);
       setSelectedCartridges([]);
 
       form.reset();
     } catch (error) {
-      console.log('Error [CREATE_BATCH_FORM]', error);
+      console.error('Error [CREATE_BATCH_FORM]', error);
     } finally {
     }
   };

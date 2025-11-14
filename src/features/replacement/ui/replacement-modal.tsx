@@ -28,7 +28,7 @@ export const ReplacementModal: React.FC<Props> = () => {
           Замена картриджа
         </Button>
       </DialogTrigger>
-      <DialogContent className='space-y-4'>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle className='flex items-center gap-2'>
             <Package className='h-5 w-5' />

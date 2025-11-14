@@ -17,7 +17,7 @@ export const DeletePrinter: React.FC<Props> = ({ printerId, printerName }) => {
     try {
       await deletePrinter.mutateAsync(printerId);
     } catch (error) {
-      console.log('Error [DeletePrinter]', error);
+      console.error('Error [DeletePrinter]', error);
     }
   };
   return (

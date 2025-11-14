@@ -32,7 +32,7 @@ export const CreateUserForm: React.FC<Props> = ({ setOpen }) => {
     try {
       await create.mutateAsync(data);
     } catch (error) {
-      console.log('Error [REGISTER_FORM]', error);
+      console.error('Error [REGISTER_FORM]', error);
     } finally {
       setOpen(false);
     }
@@ -113,7 +113,7 @@ export const CreateUserForm: React.FC<Props> = ({ setOpen }) => {
             </div>
           </div>
         </div>
-        <div className='flex justify-end gap-6'>
+        <div className='grid grid-cols-2 gap-4'>
           <Button disabled={form.formState.isSubmitting} type='submit'>
             {form.formState.isSubmitting ? 'Создание пользователя...' : 'Добавить пользователя'}
           </Button>

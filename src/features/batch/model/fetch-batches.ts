@@ -22,8 +22,6 @@ export const fetchBatches = async ({
     params.set('skip', skip.toString());
   }
 
-  console.log(params);
-
   const { data } = await axiosInstance.get(`/batch?${params.toString()}&${statusParams}`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_READ_KEY}`,

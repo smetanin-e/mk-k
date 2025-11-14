@@ -29,7 +29,7 @@ export const RegisterModelForm: React.FC<Props> = () => {
       await create.mutateAsync(data);
       form.reset();
     } catch (error) {
-      console.log('Error [REGISTER_MODEL_FORM]', error);
+      console.error('Error [REGISTER_MODEL_FORM]', error);
     } finally {
       closeModal(false);
     }
@@ -47,7 +47,7 @@ export const RegisterModelForm: React.FC<Props> = () => {
           />
         </div>
         <div className='pt-4 flex justify-end'>
-          <Button disabled={form.formState.isSubmitting} type='submit' className='w-[250px]'>
+          <Button disabled={form.formState.isSubmitting} type='submit' className='w-full'>
             <Plus className='h-4 w-4 mr-2' />
             {form.formState.isSubmitting ? 'Создание модели...' : 'Добавить модель'}
           </Button>

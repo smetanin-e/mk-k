@@ -32,7 +32,7 @@ export const UpdateUserForm: React.FC<Props> = ({ setOpen, user }) => {
     try {
       await update.mutateAsync({ userId: user.id, formData: data });
     } catch (error) {
-      console.log('Error [UPDATE_USER_FORM]', error);
+      console.error('Error [UPDATE_USER_FORM]', error);
     } finally {
       setOpen(false);
     }
@@ -79,7 +79,7 @@ export const UpdateUserForm: React.FC<Props> = ({ setOpen, user }) => {
           <FormSelect required name='role' label='Роль' data={USER_ROLES} />
         </div>
 
-        <div className='flex justify-end gap-6'>
+        <div className=' grid grid-cols-2 gap-4'>
           <Button disabled={form.formState.isSubmitting} type='submit'>
             {form.formState.isSubmitting ? 'Данные обновляются...' : 'Обновить данные'}
           </Button>

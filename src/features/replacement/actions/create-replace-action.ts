@@ -5,7 +5,6 @@ import { CartridgeStatus } from '@prisma/client';
 import { replacementRepository } from '@/entities/replacement/repository/replacementRepository';
 
 export const createReplaceAction = async (formData: ReplacementFormType) => {
-  console.log('ACTION_REPLACE_START');
   try {
     if (!formData.installedCartridge && !formData.removedCartridge) {
       return { success: false, message: 'Не выбраны картриджи для замены' };

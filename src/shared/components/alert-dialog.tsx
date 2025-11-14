@@ -46,8 +46,8 @@ export const AlertDialog: React.FC<Props> = ({ trigger, description, onConfirm }
           </DialogTitle>
           <DialogDescription className='text-center'>{description}</DialogDescription>
         </DialogHeader>
-        <div className='flex items-center justify-center space-x-4'>
-          <Button disabled={loading} variant={'outline'} onClick={handleConfirm}>
+        <div className='pt-4 grid grid-cols-2 gap-4'>
+          <Button disabled={loading} onClick={handleConfirm}>
             {loading ? 'Удаляем...' : 'Подтвердить'}
           </Button>
           <Button disabled={loading} variant={'outline'} onClick={() => setOpen(false)}>

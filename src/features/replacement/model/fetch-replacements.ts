@@ -18,7 +18,7 @@ export const fetchReplacements = async ({
   const params = new URLSearchParams();
   params.set('take', take.toString());
   params.set('skip', skip.toString());
-  console.log(params);
+
   if (search.trim()) params.set('search', search.trim());
   const { data } = await axiosInstance.get<ReplacementDTO[]>(`/replacement?${params.toString()}`, {
     headers: {

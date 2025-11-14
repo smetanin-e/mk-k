@@ -46,7 +46,7 @@ async function main() {
     await clearData();
     await generateData();
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 main()

@@ -26,7 +26,7 @@ export const CreateDepartamentModal: React.FC<Props> = () => {
           Добавить подразделение
         </Button>
       </DialogTrigger>
-      <DialogContent className='space-y-4'>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle className='flex items-center gap-2'>
             <Building2 className='h-5 w-5' />

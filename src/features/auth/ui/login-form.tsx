@@ -69,7 +69,7 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
           />
         </div>
 
-        <Button disabled={form.formState.isSubmitting} className='w-full' type='submit'>
+        <Button disabled={form.formState.isSubmitting} className='w-full mt-6' type='submit'>
           Войти
         </Button>
       </form>
