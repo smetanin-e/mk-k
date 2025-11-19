@@ -2,6 +2,7 @@
 import React from 'react';
 import { signOut } from 'next-auth/react';
 import toast from 'react-hot-toast';
+import { queryClient } from '@/shared/lib/query-client';
 
 interface Props {
   className?: string;
@@ -9,7 +10,7 @@ interface Props {
 export const Logout: React.FC<Props> = () => {
   const logout = async () => {
     await signOut({ callbackUrl: '/' });
-
+    queryClient.removeQueries();
     toast('Выход из аккаунта');
   };
   return (

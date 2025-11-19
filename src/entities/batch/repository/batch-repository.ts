@@ -37,7 +37,7 @@ export const batchRepository = {
             returnResponsible: true,
             returnNotes: true,
             cartridge: {
-              select: { id: true, label: true, numericLabel: true, model: true, status: true },
+              select: { id: true, label: true, numericLabel: true, model: true },
             },
           },
         },
