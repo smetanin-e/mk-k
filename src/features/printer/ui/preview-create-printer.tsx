@@ -22,7 +22,7 @@ export const PreviewCreatePrinter: React.FC<Props> = () => {
   const { data } = useGetModels();
   return (
     <div>
-      <Label className='font-semibold'>Предварительный просмотр:</Label>
+      <Label className='font-semibold mb-2'>Предварительный просмотр:</Label>
       <div className='max-w-[462px]'>
         <Table>
           <TableHeader className='bg-muted/50'>
@@ -33,13 +33,13 @@ export const PreviewCreatePrinter: React.FC<Props> = () => {
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className='font-medium bg-gray-200'>{form.watch('name') || '—'}</TableCell>
-              <TableCell className='bg-gray-200'>
+              <TableCell className='font-medium'>{form.watch('name') || '—'}</TableCell>
+              <TableCell>
                 <div className='flex flex-wrap gap-1'>
                   {form.watch('models')?.length > 0 ? (
                     form.watch('models').map((id: number) => {
                       const model = data.find((m) => m.id === id);
-                      if (!model) return null;
+                      if (!model) return;
                       return (
                         <Badge key={model.id} variant='secondary' className='flex flex-wrap gap-1'>
                           {model.model}
@@ -47,7 +47,10 @@ export const PreviewCreatePrinter: React.FC<Props> = () => {
                       );
                     })
                   ) : (
-                    <span className='text-gray-500 text-sm'>модели не выбраны</span>
+                    <div className='text-center w-full'>
+                      {' '}
+                      <Badge variant='outline'>—</Badge>
+                    </div>
                   )}
                 </div>
               </TableCell>

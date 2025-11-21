@@ -11,7 +11,7 @@ import {
 import { CartridgeDTO } from '../model/types';
 import { useSelectetCartridgeStore } from '../model/store';
 import { getStatusBadge } from './get-status-badge';
-import { handleCartridgeSelect } from '../model/lib';
+import { handleCartridgeSelect, handleSelectAllCartridges } from '../model/lib';
 interface Props {
   className?: string;
   searchValue: string;
@@ -24,12 +24,27 @@ export const SendingCartridgesList: React.FC<Props> = ({ availableForService, se
   const filteredCartriges = availableForService.filter((cartridge) =>
     searchValue ? cartridge.label.toLowerCase().includes(searchValue.toLowerCase()) : true,
   );
+
+  const isAllSelected =
+    availableForService.length > 0 && selectedCartridges.length === availableForService.length;
   return (
     <div className='h-[369px] '>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-12'></TableHead>
+            <TableHead className='w-12'>
+              <Checkbox
+                id='select-all'
+                checked={isAllSelected}
+                onCheckedChange={(checked) =>
+                  handleSelectAllCartridges(
+                    availableForService,
+                    checked === true,
+                    setSelectedCartridges,
+                  )
+                }
+              />
+            </TableHead>
             <TableHead>Номер</TableHead>
             <TableHead>Модель</TableHead>
             <TableHead>Статус</TableHead>

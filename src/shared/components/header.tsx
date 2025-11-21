@@ -7,6 +7,7 @@ import { Download, Package, Repeat } from 'lucide-react';
 import { Logo } from './logo';
 import { Profile } from '@/entities/user/ui/profile';
 import { AuthUser } from '@/entities/user/model/types';
+import { Theme } from './theme';
 
 interface Props {
   className?: string;
@@ -27,7 +28,7 @@ export const Header: React.FC<Props> = ({ title, description, user }) => {
           <p className='text-muted-foreground'>{description}</p>
         </div>
       </div>
-      <div className='flex gap-2 items-center'>
+      <div className='flex gap-4 items-center'>
         <Link href='/replacement'>
           <Button variant='outline' className='flex items-center gap-2'>
             <Repeat className='h-4 w-4' />
@@ -51,6 +52,7 @@ export const Header: React.FC<Props> = ({ title, description, user }) => {
             Картриджи
           </Button>
         </Link>
+        <Theme />
         {user && <Profile user={user} />}
       </div>
     </div>

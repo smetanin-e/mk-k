@@ -1,6 +1,5 @@
 import { CardHeader, CardTitle, Checkbox, Input, Label } from '@/shared/components/ui';
 import React from 'react';
-import { handleSelectAllCartridges } from '../model/lib';
 import { Search } from 'lucide-react';
 import { ClearButton } from '@/shared/components';
 import { useSelectetCartridgeStore } from '../model/store';
@@ -22,10 +21,7 @@ export const SendingCartridgesHeader: React.FC<Props> = ({
   checkedReserve,
   setCheckedReserve,
 }) => {
-  const { selectedCartridges, setSelectedCartridges } = useSelectetCartridgeStore();
-
-  const isAllSelected =
-    availableForService.length > 0 && selectedCartridges.length === availableForService.length;
+  const { setSelectedCartridges } = useSelectetCartridgeStore();
 
   //Отображаем или не отображаем резервные картриджи
   const handleCheckedReserve = (checked: boolean) => {
@@ -49,22 +45,6 @@ export const SendingCartridgesHeader: React.FC<Props> = ({
             />
             <Label htmlFor='select-reserve' className='text-sm'>
               Резерв
-            </Label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox
-              id='select-all'
-              checked={isAllSelected}
-              onCheckedChange={(checked) =>
-                handleSelectAllCartridges(
-                  availableForService,
-                  checked === true,
-                  setSelectedCartridges,
-                )
-              }
-            />
-            <Label htmlFor='select-all' className='text-sm'>
-              Выбрать все
             </Label>
           </div>
         </div>

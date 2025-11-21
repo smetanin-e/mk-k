@@ -11,11 +11,10 @@ interface Props {
 export const Theme: React.FC<Props> = () => {
   const { theme, setTheme } = useTheme();
   return (
-    <div className='absolute right-6 top-4'>
+    <div>
       <Button
+        className='w-10'
         variant={'outline'}
-        size={'icon'}
-        className='rounded-full'
         onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       >
         <Moon

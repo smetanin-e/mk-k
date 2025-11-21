@@ -25,7 +25,7 @@ export const Profile: React.FC<Props> = ({ user }) => {
   const bgColor = stringToColor(name);
 
   return (
-    <div className='ml-6 '>
+    <div>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Avatar className='h-11 w-11 cursor-pointer'>
