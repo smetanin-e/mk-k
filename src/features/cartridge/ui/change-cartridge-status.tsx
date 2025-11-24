@@ -21,12 +21,11 @@ interface Props {
 
 export const ChangeCartridgeStatus: React.FC<Props> = ({ id, currentStatus }) => {
   const { updateStatus } = useCartridgesMutations();
-  const statuses = Object.keys(CARTRIDGE_STATUS_CONFIG).filter(
-    (key) =>
-      key === CartridgeStatus.AVAILABLE ||
-      key === CartridgeStatus.REFILL ||
-      key === CartridgeStatus.RESERVE ||
-      key === CartridgeStatus.DISCARDED,
+
+  const allowedStatuses: CartridgeStatus[] = ['AVAILABLE', 'REFILL', 'RESERVE', 'DISCARDED'];
+
+  const statuses = Object.keys(CARTRIDGE_STATUS_CONFIG).filter((key) =>
+    allowedStatuses.includes(key as CartridgeStatus),
   );
 
   const changeStatus = async (id: number, status: CartridgeStatus) => {
