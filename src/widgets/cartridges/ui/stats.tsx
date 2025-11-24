@@ -12,7 +12,9 @@ interface Props {
 export const Stats: React.FC<Props> = () => {
   const { cartridges, isLoading } = useGetCartridges();
 
-  const statuses = Object.keys(CARTRIDGE_STATUS_CONFIG) as CartridgeStatus[];
+  const statuses = (Object.keys(CARTRIDGE_STATUS_CONFIG) as CartridgeStatus[]).filter(
+    (s) => s !== CartridgeStatus.DISCARDED,
+  );
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6'>

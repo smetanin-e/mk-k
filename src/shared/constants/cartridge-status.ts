@@ -1,4 +1,12 @@
-import { AlertCircle, Bolt, CheckCircle, Clock, LifeBuoy, TriangleAlert } from 'lucide-react';
+import {
+  AlertCircle,
+  Bolt,
+  CheckCircle,
+  ClipboardX,
+  Clock,
+  LifeBuoy,
+  TriangleAlert,
+} from 'lucide-react';
 import { FormSelectType } from '../components/form/form-select';
 
 export const CARTRIDGE_STATUS: FormSelectType[] = [
@@ -7,6 +15,7 @@ export const CARTRIDGE_STATUS: FormSelectType[] = [
   { id: 3, name: 'WORKING', label: 'В работе' },
   { id: 4, name: 'SERVICE', label: 'В сервисе' },
   { id: 5, name: 'REFILL', label: 'Требуется заправка' },
+  { id: 6, name: 'DISCARDED', label: 'Списан' },
 ];
 
 export const CARTRIDGE_STATUS_CONFIG = {
@@ -44,6 +53,13 @@ export const CARTRIDGE_STATUS_CONFIG = {
     textColor: 'text-purple-500',
     bgColor: 'bg-purple-50',
     icon: TriangleAlert,
+  },
+  DISCARDED: {
+    label: 'Списан',
+    color: 'bg-black',
+    textColor: 'bg-black',
+    bgColor: 'bg-black',
+    icon: ClipboardX,
   },
 } as const;
 

@@ -25,7 +25,8 @@ export const ChangeCartridgeStatus: React.FC<Props> = ({ id, currentStatus }) =>
     (key) =>
       key === CartridgeStatus.AVAILABLE ||
       key === CartridgeStatus.REFILL ||
-      key === CartridgeStatus.RESERVE,
+      key === CartridgeStatus.RESERVE ||
+      key === CartridgeStatus.DISCARDED,
   );
 
   const changeStatus = async (id: number, status: CartridgeStatus) => {
@@ -39,7 +40,7 @@ export const ChangeCartridgeStatus: React.FC<Props> = ({ id, currentStatus }) =>
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
+        <Button variant='ghost' className='h-8 w-8 p-0 '>
           {updateStatus.isLoading ? (
             <Spinner className='h-4 w-4' />
           ) : (
