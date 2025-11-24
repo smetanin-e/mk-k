@@ -6,12 +6,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from '@/shared/components/ui';
 import { Eye } from 'lucide-react';
 import { BatchCartridge } from '@/entities/cartridge/model/types';
@@ -46,22 +40,22 @@ export const ShowCreatedBatch: React.FC<Props> = ({ cartridges, date, responsibl
               <strong>Ответственный:</strong> {responsible}
             </div>
           </div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Номер</TableHead>
-                <TableHead>Модель</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {cartridges.map((c) => (
-                <TableRow key={c.label}>
-                  <TableCell>{c.label}</TableCell>
-                  <TableCell>{c.model.model}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <div className='h-80 overflow-y-auto'>
+            <div className='grid sticky top-0 z-10 text-sm font-semibold px-2 py-2 grid-cols-[1fr_1fr] bg-card-header shadow-sm mb-2'>
+              <div>Номер</div>
+              <div>Модель</div>
+            </div>
+
+            {cartridges.map((cartridge) => (
+              <div
+                key={cartridge.id}
+                className='grid px-2 py-2 items-center text-sm  grid-cols-[1fr_1fr]'
+              >
+                <div className='font-medium'>{cartridge.label}</div>
+                <div>{cartridge.model.model}</div>
+              </div>
+            ))}
+          </div>
         </div>
         {notes && <Notes notes={notes} />}
       </DialogContent>

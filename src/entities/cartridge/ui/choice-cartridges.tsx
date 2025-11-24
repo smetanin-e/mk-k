@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Badge,
-  Checkbox,
-  Label,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/shared/components/ui';
+import { Badge, Checkbox } from '@/shared/components/ui';
 import { Calendar, CheckCircle } from 'lucide-react';
 import { BatchCartridge } from '../model/types';
 interface Props {
@@ -47,38 +37,34 @@ export const ChoiceCartridges: React.FC<Props> = ({
   };
   return (
     <div>
-      <div className='flex items-center justify-between mb-4'>
-        <h3 className='text-lg font-semibold'>
-          Выберите картриджи для приема (доступно: {avaibleCartridges.length})
-        </h3>
-        <div className='flex items-center space-x-2'>
-          <Checkbox
-            id='select-all-return'
-            checked={isAllSelected}
-            onCheckedChange={(checked) => handleSelectAll(checked === true)}
-          />
-          <Label htmlFor='select-all-return' className='text-sm'>
-            Выбрать все
-          </Label>
-        </div>
-      </div>
+      <h3 className='text-lg font-semibold mb-4'>
+        Выберите картриджи для приема (доступно: {avaibleCartridges.length})
+      </h3>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className='w-12'></TableHead>
-            <TableHead>Номер</TableHead>
-            <TableHead>Модель</TableHead>
-            <TableHead>Статус</TableHead>
-            <TableHead>Дата возврата</TableHead>
-            <TableHead>Ответственный</TableHead>
-            <TableHead>Комментарий</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+      <div className='h-60 overflow-y-auto'>
+        <div className='grid sticky top-0 z-10 text-sm font-semibold px-2 py-2 grid-cols-[50px_120px_150px_120px_150px_150px_1fr] bg-card-header shadow-sm mb-2'>
+          <div>
+            <Checkbox
+              id='select-all-return'
+              checked={isAllSelected}
+              onCheckedChange={(checked) => handleSelectAll(checked === true)}
+            />
+          </div>
+          <div>Номер</div>
+          <div>Модель</div>
+          <div>Статус</div>
+          <div>Дата возврата</div>
+          <div>Ответственный</div>
+          <div>Комментарий</div>
+        </div>
+
+        <div>
           {cartridges.map((c) => (
-            <TableRow key={c.id}>
-              <TableCell>
+            <div
+              key={c.id}
+              className='grid px-2 py-2 items-center text-sm  grid-cols-[50px_120px_150px_120px_150px_150px_1fr]'
+            >
+              <div>
                 {!c.returned ? (
                   <Checkbox
                     checked={selectedCartridges.includes(c.id)}
@@ -87,15 +73,18 @@ export const ChoiceCartridges: React.FC<Props> = ({
                 ) : (
                   <CheckCircle className='h-4 w-4 text-success' />
                 )}
-              </TableCell>
-              <TableCell className='font-medium'>{c.label}</TableCell>
-              <TableCell>{c.model.model}</TableCell>
-              <TableCell>
+              </div>
+
+              <div className='font-medium'>{c.label}</div>
+              <div>{c.model.model}</div>
+
+              <div>
                 <Badge variant={c.returned ? 'success' : 'secondary'}>
                   {c.returned ? 'Возвращен' : 'В сервисе'}
                 </Badge>
-              </TableCell>
-              <TableCell>
+              </div>
+
+              <div>
                 {c.returned ? (
                   <div className='flex items-center gap-1 text-sm'>
                     <Calendar className='h-3 w-3' />
@@ -104,25 +93,23 @@ export const ChoiceCartridges: React.FC<Props> = ({
                 ) : (
                   <span className='text-muted-foreground text-sm'>—</span>
                 )}
-              </TableCell>
-              <TableCell>
+              </div>
+
+              <div>
                 {c.returned ? (
-                  <div>{c.returnResponsible}</div>
+                  <span>{c.returnResponsible}</span>
                 ) : (
                   <span className='text-muted-foreground text-sm'>—</span>
                 )}
-              </TableCell>
-              <TableCell className='max-w-[150px] truncate whitespace-normal break-words'>
-                {c.returnNotes ? (
-                  <div className='text-xs max-w-[250px]'>{c.returnNotes}</div>
-                ) : (
-                  <span className='text-muted-foreground text-sm'>—</span>
-                )}
-              </TableCell>
-            </TableRow>
+              </div>
+
+              <div className='text-xs break-words whitespace-normal'>
+                {c.returnNotes ?? <span className='text-muted-foreground text-sm'>—</span>}
+              </div>
+            </div>
           ))}
-        </TableBody>
-      </Table>
+        </div>
+      </div>
     </div>
   );
 };

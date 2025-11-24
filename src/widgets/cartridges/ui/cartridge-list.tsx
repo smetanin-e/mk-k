@@ -43,7 +43,7 @@ export const CartridgeList: React.FC<Props> = () => {
             <RegisterCartridgeModal />
           </div>
         </CardHeader>
-        <CardContent className='relative h-[625px]'>
+        <CardContent className='relative h-[625px] p-0'>
           {isLoading ? (
             <LoadingBounce />
           ) : (

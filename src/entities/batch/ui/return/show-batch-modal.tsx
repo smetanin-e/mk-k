@@ -43,7 +43,7 @@ export const ShowBatchModal: React.FC<Props> = ({
           <Eye className='h-4 w-4' />
         </Button>
       </DialogTrigger>
-      <DialogContent className='max-w-2xl sm:max-w-auto' aria-describedby={undefined}>
+      <DialogContent className='max-w-4xl sm:max-w-auto' aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Партия от {date}</DialogTitle>
         </DialogHeader>
@@ -62,23 +62,25 @@ export const ShowBatchModal: React.FC<Props> = ({
               </div>
             )}
           </div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Номер</TableHead>
-                <TableHead>Модель</TableHead>
-                <TableHead>Статус</TableHead>
-                <TableHead>Дата возврата</TableHead>
-                <TableHead>Принял</TableHead>
-                <TableHead>Комментарий</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {cartridges.map((cartridge) => (
-                <ShowBatchTable key={cartridge.id} batch={batch} cartridge={cartridge} />
-              ))}
-            </TableBody>
-          </Table>
+          <div className='h-60 overflow-y-auto'>
+            <div className='grid sticky top-0 z-10 text-sm font-semibold px-2 py-2 grid-cols-[100px_100px_120px_150px_150px_1fr] bg-card-header shadow-sm mb-2'>
+              <div>Номер</div>
+              <div>Модель</div>
+              <div>Статус</div>
+              <div>Дата возврата</div>
+              <div>Принял</div>
+              <div>Комментарий</div>
+            </div>
+
+            {cartridges.map((cartridge) => (
+              <div
+                key={cartridge.id}
+                className='grid px-2 py-2 items-center text-sm  grid-cols-[100px_100px_120px_150px_150px_1fr]'
+              >
+                <ShowBatchTable batch={batch} cartridge={cartridge} />
+              </div>
+            ))}
+          </div>
         </div>
         {batch.notes && (
           <DialogFooter className='sm:justify-start'>

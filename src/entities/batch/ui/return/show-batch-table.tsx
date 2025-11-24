@@ -2,7 +2,7 @@ import { getCartridgeReturnInfo } from '@/entities/cartridge/model/lib';
 import { BatchCartridge } from '@/entities/cartridge/model/types';
 import React from 'react';
 import { BatchDTO } from '../../model/types';
-import { Badge, TableCell, TableRow } from '@/shared/components/ui';
+import { Badge } from '@/shared/components/ui';
 import { Calendar } from 'lucide-react';
 
 interface Props {
@@ -14,16 +14,16 @@ interface Props {
 export const ShowBatchTable: React.FC<Props> = ({ batch, cartridge }) => {
   const returnInfo = getCartridgeReturnInfo(batch, cartridge.id);
   return (
-    <TableRow key={cartridge.label}>
-      <TableCell>{cartridge.label}</TableCell>
-      <TableCell>{cartridge.model.model}</TableCell>
+    <>
+      <div>{cartridge.label}</div>
+      <div>{cartridge.model.model}</div>
 
-      <TableCell>
+      <div>
         <Badge variant={cartridge.returned ? 'success' : 'outline'}>
           {cartridge.returned ? 'Возвращен' : 'В сервисе'}
         </Badge>
-      </TableCell>
-      <TableCell>
+      </div>
+      <div>
         {returnInfo?.returnDate ? (
           <div className='flex items-center gap-1 text-sm'>
             <Calendar className='h-3 w-3' />
@@ -32,21 +32,21 @@ export const ShowBatchTable: React.FC<Props> = ({ batch, cartridge }) => {
         ) : (
           <span className='text-muted-foreground text-sm'>—</span>
         )}
-      </TableCell>
-      <TableCell>
+      </div>
+      <div>
         {cartridge.returnResponsible ? (
           cartridge.returnResponsible
         ) : (
           <span className='text-muted-foreground text-sm'>—</span>
         )}
-      </TableCell>
-      <TableCell className='max-w-[200px] truncate whitespace-normal break-words'>
+      </div>
+      <div className='max-w-[200px] truncate whitespace-normal break-words'>
         {cartridge.returnNotes ? (
           <div className='text-xs max-w-[250px]'>{cartridge.returnNotes}</div>
         ) : (
           <span className='text-muted-foreground text-sm'>—</span>
         )}
-      </TableCell>
-    </TableRow>
+      </div>
+    </>
   );
 };

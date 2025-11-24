@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/shared/components/ui';
+import { Checkbox } from '@/shared/components/ui';
 import { CartridgeDTO } from '../model/types';
 import { useSelectetCartridgeStore } from '../model/store';
 import { getStatusBadge } from './get-status-badge';
@@ -28,51 +20,49 @@ export const SendingCartridgesList: React.FC<Props> = ({ availableForService, se
   const isAllSelected =
     availableForService.length > 0 && selectedCartridges.length === availableForService.length;
   return (
-    <div className='h-[369px] '>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className='w-12'>
-              <Checkbox
-                id='select-all'
-                checked={isAllSelected}
-                onCheckedChange={(checked) =>
-                  handleSelectAllCartridges(
-                    availableForService,
-                    checked === true,
-                    setSelectedCartridges,
-                  )
-                }
-              />
-            </TableHead>
-            <TableHead>Номер</TableHead>
-            <TableHead>Модель</TableHead>
-            <TableHead>Статус</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredCartriges.map((cartridge) => (
-            <TableRow key={cartridge.id}>
-              <TableCell>
-                <Checkbox
-                  checked={selectedCartridges.includes(cartridge.id)}
-                  onCheckedChange={(checked) =>
-                    handleCartridgeSelect(
-                      selectedCartridges,
-                      cartridge.id,
-                      checked as boolean,
-                      setSelectedCartridges,
-                    )
-                  }
-                />
-              </TableCell>
-              <TableCell className='font-medium'>{cartridge.label}</TableCell>
-              <TableCell>{cartridge.model?.model}</TableCell>
-              <TableCell>{getStatusBadge(cartridge.status)}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div className='h-[369px] overflow-y-auto'>
+      <div className='grid sticky top-0 z-10 text-sm font-semibold px-2 py-2 grid-cols-[50px_100px_250px_200px] bg-card-header shadow-sm mb-2'>
+        <div>
+          <Checkbox
+            id='select-all'
+            checked={isAllSelected}
+            onCheckedChange={(checked) =>
+              handleSelectAllCartridges(
+                availableForService,
+                checked === true,
+                setSelectedCartridges,
+              )
+            }
+          />
+        </div>
+        <div>Номер</div>
+        <div>Модель</div>
+        <div>Статус</div>
+      </div>
+
+      {filteredCartriges.map((cartridge) => (
+        <div
+          key={cartridge.id}
+          className='grid px-2 py-2 items-center text-sm  grid-cols-[50px_100px_250px_200px]'
+        >
+          <div>
+            <Checkbox
+              checked={selectedCartridges.includes(cartridge.id)}
+              onCheckedChange={(checked) =>
+                handleCartridgeSelect(
+                  selectedCartridges,
+                  cartridge.id,
+                  checked as boolean,
+                  setSelectedCartridges,
+                )
+              }
+            />
+          </div>
+          <div className='font-medium'>{cartridge.label}</div>
+          <div>{cartridge.model?.model}</div>
+          <div>{getStatusBadge(cartridge.status)}</div>
+        </div>
+      ))}
     </div>
   );
 };

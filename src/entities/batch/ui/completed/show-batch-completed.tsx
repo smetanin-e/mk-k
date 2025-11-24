@@ -17,6 +17,7 @@ import {
 import { Calendar, Eye } from 'lucide-react';
 import { BatchCartridge } from '@/entities/cartridge/model/types';
 import { BatchDTO } from '../../model/types';
+import { ShowBatchTable } from '../return';
 interface Props {
   className?: string;
   date: string;
@@ -26,7 +27,13 @@ interface Props {
   batch: BatchDTO;
 }
 
-export const ShowBatchCompleted: React.FC<Props> = ({ date, responsible, status, cartridges }) => {
+export const ShowBatchCompleted: React.FC<Props> = ({
+  date,
+  responsible,
+  status,
+  cartridges,
+  batch,
+}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -53,7 +60,26 @@ export const ShowBatchCompleted: React.FC<Props> = ({ date, responsible, status,
               <strong>Всего картриджей:</strong> {cartridges.length}
             </div>
           </div>
-          <Table>
+          <div className='h-80 overflow-y-auto'>
+            <div className='grid sticky top-0 z-10 text-sm font-semibold px-2 py-2 grid-cols-[100px_100px_120px_150px_150px_1fr] bg-card-header shadow-sm mb-2'>
+              <div>Номер</div>
+              <div>Модель</div>
+              <div>Статус</div>
+              <div>Дата возврата</div>
+              <div>Принял</div>
+              <div>Комментарий</div>
+            </div>
+
+            {cartridges.map((cartridge) => (
+              <div
+                key={cartridge.id}
+                className='grid px-2 py-2 items-center text-sm  grid-cols-[100px_100px_120px_150px_150px_1fr]'
+              >
+                <ShowBatchTable batch={batch} cartridge={cartridge} />
+              </div>
+            ))}
+          </div>
+          {/* <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Номер</TableHead>
@@ -92,7 +118,7 @@ export const ShowBatchCompleted: React.FC<Props> = ({ date, responsible, status,
                 );
               })}
             </TableBody>
-          </Table>
+          </Table> */}
         </div>
       </DialogContent>
     </Dialog>

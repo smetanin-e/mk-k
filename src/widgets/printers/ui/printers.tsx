@@ -48,7 +48,7 @@ export const Printers: React.FC<Props> = () => {
             <CreatePrinterModal />
           </div>
         </CardHeader>
-        <CardContent className='relative h-[625px]'>
+        <CardContent className='relative h-[625px] p-0'>
           {isLoading ? (
             <LoadingBounce />
           ) : (
@@ -58,9 +58,7 @@ export const Printers: React.FC<Props> = () => {
                   Нет данных о принтерах
                 </div>
               ) : (
-                <div className='h-[625px] overflow-auto overflow-y-scroll'>
-                  <PrinterList printers={filteredPrinters} />
-                </div>
+                <PrinterList printers={filteredPrinters} />
               )}
             </>
           )}
