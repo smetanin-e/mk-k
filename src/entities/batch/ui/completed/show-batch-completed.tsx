@@ -1,20 +1,13 @@
 import React from 'react';
 import {
-  Badge,
   Button,
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from '@/shared/components/ui';
-import { Calendar, Eye } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { BatchCartridge } from '@/entities/cartridge/model/types';
 import { BatchDTO } from '../../model/types';
 import { ShowBatchTable } from '../return';

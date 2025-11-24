@@ -8,11 +8,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from '@/shared/components/ui';
 import { Eye } from 'lucide-react';
 import { BatchDTO } from '../../model/types';
