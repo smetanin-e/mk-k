@@ -28,6 +28,6 @@ export const changeUserPasswordAction = async (userId: number, formData: ChangeP
     return { success: true };
   } catch (error) {
     console.error('[CHANGE_USER_PASSWORD] Server error', error);
-    return { success: false, message: 'Ошибка регистрации пользователя' };
+    return { success: false, message: 'Ошибка изменения пароля' };
   }
 };
